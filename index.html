@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Futures Display</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-image">
+  <div id="background-color-layer"></div>
+
+  <div class="moving-background">
+    <div class="layer layer2">
+      <div class="slide" style="background-image: url('Brush-02.png');"></div>
+      <div class="slide" style="background-image: url('Brush-02.png');"></div>
+    </div>
+    <div class="layer layer3">
+      <div class="slide" style="background-image: url('Skyline-03.png');"></div>
+      <div class="slide" style="background-image: url('Skyline-03.png');"></div>
+    </div>
+    <div class="layer layer4">
+      <div class="slide" style="background-image: url('Mountains-04.png');"></div>
+      <div class="slide" style="background-image: url('Mountains-04.png');"></div>
+    </div>
+    <div class="layer layer5">
+      <div class="slide" style="background-image: url('Clouds-05.png');"></div>
+      <div class="slide" style="background-image: url('Clouds-05.png');"></div>
+    </div>
+  </div>
+
+  <div id="layout-root" class="main-layout">
+    <div class="left-column">
+      <h1 id="day-name" class="fade-in">Monday</h1>
+
+      <div class="box events-box fade-in">
+        <div class="box-header">Today’s Events</div>
+        <div id="today-events" class="box-body"></div>
+      </div>
+
+      <div class="box schedule-box fade-in">
+        <div class="box-header">SCHEDULE</div>
+        <table id="schedule-table" class="box-body"></table>
+      </div>
+
+      <div class="week-label fade-in" id="week-label">A-WEEK</div>
+    </div>
+
+    <div class="right-column">
+      <div class="header-box fade-in">
+        <div class="welcome-small">Welcome to</div>
+        <div class="welcome-big">New Futures School</div>
+        <div class="date-time-large">
+          <div id="date-text">Friday, August 8, 2025</div>
+          <div id="time-text">03:45 PM</div>
+        </div>
+      </div>
+
+      <div class="week-section fade-in">
+        <div class="upcoming-days" id="upcoming-days">
+          <!-- Monday–Thursday day columns go here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load config first, then main script -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+
+  <!-- === LIVE DATE/TIME === -->
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+
+      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+
+      document.getElementById('date-text').textContent = now.toLocaleDateString('en-US', dateOptions);
+      document.getElementById('time-text').textContent = now.toLocaleTimeString('en-US', timeOptions);
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+  </script>
+
+<!-- === A/B WEEK AUTO SWITCH === -->
+<script src="config.js"></script>
+<script>
+function applyWeekLabel() {
+  const label = document.getElementById("week-label");
+  if (!label) return;
+
+  const currentWeek = getCurrentWeek(); // Get the current week (A or B)
+
+  if (currentWeek === "A") {
+    label.textContent = "A-WEEK";
+    label.classList.add("a-week");
+    label.classList.remove("b-week");
+  } else if (currentWeek === "B") {
+    label.textContent = "B-WEEK";
+    label.classList.add("b-week");
+    label.classList.remove("a-week");
+  }
+}
+
+// Ensure the week label is applied after the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  applyWeekLabel();
+});
+</script>
+
+
+</body>
+</html>

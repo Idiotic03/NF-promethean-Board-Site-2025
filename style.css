@@ -1,0 +1,357 @@
+/* === GENERAL BODY === */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* === MAIN LAYOUT === */
+.main-layout {
+  display: flex;
+  height: calc(100vh - 10px); /* subtract padding */
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+
+/* === LEFT COLUMN === */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+  height: 100%;
+}
+
+.week-label {
+  margin-top: auto; /* pushes it to the bottom of left-column */
+}
+
+#day-name {
+  font-size: 3em;
+  font-weight: bold;
+  color: #222;
+  background: rgba(255, 255, 255, 0.85);
+  border: 2px solid #000;
+  border-radius: 5px;
+  padding: 8px 50px;
+  width: fit-content;
+  margin: 0 auto 0px auto; /* Centered */
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* === BOXES === */
+.box, .day-column {
+  border: 2px solid #000;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.box-header {
+  background: rgba(255, 255, 255, 0.8); /* Match weekday boxes */
+  padding: 8px;
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+  font-size: 1.1em;
+  text-align: center;
+}
+
+.events-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.events-box .box-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+  font-size: 1.1em;
+}
+
+/* === SCHEDULE TABLE === */
+.schedule-box .box-body {
+  padding: 0;
+}
+
+.schedule-box table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.3em; /* Increased font size */
+}
+
+.schedule-box td {
+  border: 1px solid #000;
+  padding: 10px 8px;
+}
+.schedule-box th {
+  background: #ddd;
+  padding: 10px 8px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* === WEEK LABEL === */
+.week-label {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.a-week .week-label {
+  background-color: #d9534f; /* Red */
+}
+
+.b-week .week-label {
+  background-color: #0275d8; /* Blue */
+}
+
+/* === RIGHT COLUMN === */
+.right-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+
+/* === TOP-RIGHT HEADER BOX === */
+.header-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  border: 2px solid #000;
+  border-radius: 5px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+}
+
+.welcome-small {
+  font-size: 1.4em;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.welcome-big {
+  font-size: 2em;
+  font-weight: 800;
+  margin-top: -2px;
+  margin-bottom: 5px;
+}
+
+.date-time-large {
+  font-size: 1.4em;
+  font-weight: 500;
+}
+
+.date-time-large #date-text,
+.date-time-large #time-text {
+  margin: 0;
+}
+
+
+/* === WEEK SECTION (BOTTOM RIGHT) === */
+.week-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-top: 10px; /* reduce vertical space above */
+}
+
+/* === UPCOMING EVENTS === */
+.upcoming-days {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  height: 300px;
+}
+
+
+.day-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.day-column h4 {
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 1.3em;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f0f0;
+  border-bottom: 2px solid #ccc;
+  text-align: left;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #222;
+}
+
+.day-events {
+  padding: 0px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+
+/* === MOVING BACKGROUND === */
+.moving-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.moving-background .layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200vw;
+  height: 100%;
+  background-repeat: repeat-x;
+  background-size: cover;
+  background-position: 0 0;
+}
+
+/* === INDIVIDUAL LAYERS === */
+.layer2 {
+  z-index: 5;
+  background-image: url("Brush-02.png");
+  animation: scroll2 40s linear infinite;
+}
+
+.layer3 {
+  z-index: 4;
+  background-image: url("Skyline-03.png");
+  animation: scroll3 80s linear infinite;
+}
+
+.layer4 {
+  z-index: 3;
+  background-image: url("Mountains-04.png");
+  animation: scroll4 115s linear infinite;
+}
+
+.layer5 {
+  z-index: 2;
+  background-image: url("Clouds-05.png");
+  animation: scroll7 55s linear infinite;
+  transition: filter 1s ease;
+}
+
+/* === SCROLL ANIMATIONS === */
+@keyframes scroll2 {
+  0% { background-position: 0 0; }
+  100% { background-position: -100vw 0; }
+}
+
+@keyframes scroll3 {
+  0% { background-position: 0 0; }
+  100% { background-position: -100vw 0; }
+}
+
+@keyframes scroll4 {
+  0% { background-position: 0 0; }
+  100% { background-position: -100vw 0; }
+}
+
+@keyframes scroll7 {
+  0% { background-position: 0 0; }
+  100% { background-position: -100vw 0; }
+}
+
+/* === BACKGROUND COLOR LAYER === */
+#background-color-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  background-color: #FBBF66;
+  transition: background-color 2s ease;
+}
+
+/* === LOCKED CONTAINER AND SMART HTML === */
+
+/* Container for HTML inside boxes */
+.event-html {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 1.3;
+  word-break: break-word;
+
+  /* Align content to top + center horizontally */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* top */
+  align-items: center;         /* horizontal center */
+  padding: 10px;
+  margin: 0;
+  text-align: center;
+}
+
+/* Content auto-scales based on container type */
+.events-box .event-html {
+  font-size: min(1.9vw, 1.9vh); /* large today box */
+}
+
+.day-events .event-html {
+  font-size: min(1vw, 1vh); /* smaller upcoming boxes */
+}
+
+/* Neutralize inner margins and enforce scaling */
+.event-html * {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  box-sizing: border-box;
+  max-width: 100%;
+  text-align: center;
+}
+
+/* Ensure emoji/images scale with text */
+.event-html img,
+.event-html svg {
+  max-height: 1em;
+  vertical-align: middle;
+}
+
+/* Smooth fade-in for any container */
+.fade-in {
+  animation: fadeIn 0.6s ease-out both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
