@@ -1,0 +1,22 @@
+<h1 style="color: #d7263d; font-size: 3em; text-shadow: 2px 2px #ffd166;">👶 WIC on Campus</h1>
+<p style="font-size: 1.8em; color: #0077b6;">
+  Tuesday, August 12 – WIC will be on campus from <strong style="color: #ef476f;">9:00 AM – 12:30 PM</strong>.
+</p>
+
+<h1 style="color: #06d6a0; font-size: 3em; text-shadow: 1px 1px #073b4c;">🏥 Health Services Available</h1>
+<p style="font-size: 1.8em; color: #118ab2;">
+  Our School-Based Health Center will be open from <strong style="color: #ef476f;">9:00 AM – 1:00 PM</strong>, providing services to students and their infants, including primary care and sick visits.
+</p>
+
+<h1 style="color: #ffd166; font-size: 3em; text-shadow: 2px 2px #d7263d;">🎉 Back-to-School Raffle Begins Today!</h1>
+<p style="font-size: 1.8em; color: #073b4c;">
+  We’re kicking off the school year with support, services, and prizes starting <strong style="color: #ef476f;">today</strong>!
+</p>
+<p style="font-size: 1.8em; color: #118ab2;">
+  All students who attend will be entered into a raffle for <strong>gift cards</strong> and <strong>baby items</strong> — don’t miss out!
+</p>
+
+<h1 style="color: #d7263d; font-size: 3em; text-shadow: 2px 2px #ffd166;">📚 Tutoring Today 📚</h1>
+<p style="font-size: 1.8em; color: #0077b6;">
+  There’s <strong style="color: #ef476f;">Tutoring Today</strong> — Take advantage of the extra help!
+</p>
