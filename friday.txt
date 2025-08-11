@@ -1,0 +1,4 @@
+<h1 style="color: #d7263d; font-size: 3em; text-shadow: 2px 2px #ffd166;">💡 Discovery Hour Today 💡</h1>
+<p style="font-size: 1.8em; color: #0077b6;">
+  <strong style="color: #ef476f;">Discovery Hour is happening today</strong> — Explore passions and interests - Develop life long skills!
+</p>

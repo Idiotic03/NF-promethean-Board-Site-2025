@@ -1,0 +1,4 @@
+<h1 style="color: #d7263d; font-size: 3em; text-shadow: 2px 2px #ffd166;">📚 Tutoring Today 📚</h1>
+<p style="font-size: 1.8em; color: #0077b6;">
+  There’s <strong style="color: #ef476f;">Tutoring Today</strong> — Take advantage of the extra help!
+</p>
