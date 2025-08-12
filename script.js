@@ -123,7 +123,7 @@ const schedule = {
       ["Period 2", "10:48 am - 12:16 pm"],
       ["Lunch", "12:23 pm - 12:53 pm"],
       ["Discovery", "12:59 pm - 1:59 pm"],
-      ["Period 3", "2:04 pm - 2:50 pm"],
+      ["Period 3", "2:04 pm - 2:59 pm"],
       ["Period 4", "3:04 pm - 4:00 pm"]
     ]
   }
@@ -233,4 +233,5 @@ window.addEventListener("DOMContentLoaded", () => {
     updateBackgroundColorByTime();
   }, 600000); // every 10 minutes
 });
+
 
