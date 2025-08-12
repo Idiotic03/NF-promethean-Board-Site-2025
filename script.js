@@ -80,7 +80,24 @@ const schedule = {
       ["Period 3", "12:59 pm - 2:27 pm"],
       ["Period 4", "2:32 pm - 4:00 pm"]
     ],
-    // Add other days...
+    Tuesday: [
+      ["Period 1", "9:15 am - 10:25 am"],
+      ["Period 2", "10:30 am - 11:40 am"],
+      ["Tutoring", "11:45 am - 12:16 pm"],
+      ["Lunch", "12:23 pm - 12:53 pm"],
+      ["Period 3", "12:59 pm - 2:27 pm"],
+      ["Period 4", "2:32 pm - 4:00 pm"]
+    ],
+    Wednesday: "Tuesday",
+    Thursday: "Tuesday",
+    Friday: [
+      ["Period 1", "9:15 am - 10:10 am"],
+      ["Period 2", "10:15 am - 11:10 am"],
+      ["Discovery", "11:15 am - 12:16 pm"],
+      ["Lunch", "12:23 pm - 12:53 pm"],
+      ["Period 3", "12:59 pm - 2:27 pm"],
+      ["Period 4", "2:32 pm - 4:00 pm"]
+    ]
   },
   "B": {
     Monday: [
@@ -91,7 +108,24 @@ const schedule = {
       ["Period 3", "1:34 pm - 2:45 pm"],
       ["Period 4", "2:50 pm - 4:00 pm"]
     ],
-    // Add other days...
+    Tuesday: [
+      ["Period 1", "9:15 am - 10:43 am"],
+      ["Period 2", "10:48 am - 12:16 pm"],
+      ["Lunch", "12:23 pm - 12:53 pm"],
+      ["Tutoring", "12:59 pm - 1:29 pm"],
+      ["Period 3", "1:34 pm - 2:45 pm"],
+      ["Period 4", "2:50 pm - 4:00 pm"]
+    ],
+    Wednesday: "Tuesday",
+    Thursday: "Tuesday",
+    Friday: [
+      ["Period 1", "9:15 am - 10:43 am"],
+      ["Period 2", "10:48 am - 12:16 pm"],
+      ["Lunch", "12:23 pm - 12:53 pm"],
+      ["Discovery", "12:59 pm - 1:59 pm"],
+      ["Period 3", "2:04 pm - 2:50 pm"],
+      ["Period 4", "3:04 pm - 4:00 pm"]
+    ]
   }
 };
 
@@ -199,3 +233,4 @@ window.addEventListener("DOMContentLoaded", () => {
     updateBackgroundColorByTime();
   }, 600000); // every 10 minutes
 });
+
