@@ -144,20 +144,20 @@ body {
 }
 
 .welcome-small {
-  font-size: 1.4em;
+  font-size: 2em;
   font-weight: 500;
   margin-bottom: 0;
 }
 
 .welcome-big {
-  font-size: 2em;
+  font-size: 2.8em;
   font-weight: 800;
   margin-top: -2px;
   margin-bottom: 5px;
 }
 
 .date-time-large {
-  font-size: 1.4em;
+  font-size: 2em;
   font-weight: 500;
 }
 
@@ -355,3 +355,4 @@ body {
     transform: translateY(0);
   }
 }
+
