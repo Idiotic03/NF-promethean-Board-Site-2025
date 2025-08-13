@@ -53,6 +53,7 @@
         <div class="date-time-large">
           <div id="date-text">Friday, August 8, 2025</div>
           <div id="time-text">03:45 PM</div>
+          <div id="week-string"></div>
         </div>
       </div>
 
@@ -85,13 +86,13 @@
   </script>
 
 <!-- === A/B WEEK AUTO SWITCH === -->
-<script src="config.js"></script>
 <script>
 function applyWeekLabel() {
   const label = document.getElementById("week-label");
+  const weekStr = document.getElementById("week-string");
   if (!label) return;
 
-  const currentWeek = getCurrentWeek(); // Get the current week (A or B)
+  const currentWeek = getCurrentWeek(); // "A" or "B"
 
   if (currentWeek === "A") {
     label.textContent = "A-WEEK";
@@ -102,8 +103,11 @@ function applyWeekLabel() {
     label.classList.add("b-week");
     label.classList.remove("a-week");
   }
-}
 
+  if (weekStr) {
+    weekStr.textContent = `${currentWeek}-Week Bell Schedule`;
+  }
+}
 // Ensure the week label is applied after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   applyWeekLabel();
