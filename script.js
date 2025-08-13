@@ -123,7 +123,7 @@ const schedule = {
       ["Period 2", "10:48 am - 12:16 pm"],
       ["Lunch", "12:23 pm - 12:53 pm"],
       ["Discovery", "12:59 pm - 1:59 pm"],
-      ["Period 3", "2:04 pm - 2:59 pm"],
+      ["Period 3", "2:04 pm - 2:50 pm"],
       ["Period 4", "3:04 pm - 4:00 pm"]
     ]
   }
@@ -148,35 +148,38 @@ scheduleForToday.forEach(([period, time]) => {
 loadEvents("today-events", todayName.toLowerCase());
 
 // === Load Upcoming Days ===
-// Always show Monday–Friday in rotating order starting with today
+// Show only the remaining days this week (no loop/wrap)
 const schoolDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-const todayIndex = schoolDays.indexOf(todayName);
+const todayIdx = schoolDays.indexOf(todayName);
 
-// Rotate so the list starts with the day after today
-const rotatedDays = [
-  ...schoolDays.slice(todayIndex + 1),
-  ...schoolDays.slice(0, todayIndex + 1)
-];
-
-// Drop today, keep next 4 days
-const upcomingDays = rotatedDays.slice(0, 4);
+// If today is a weekday, list only days AFTER today up to Friday
+const upcomingDays = todayIdx === -1 ? [] : schoolDays.slice(todayIdx + 1);
 
 // Render upcoming day boxes
 const container = document.getElementById("upcoming-days");
 container.innerHTML = ""; // Clear any existing content
 
-upcomingDays.forEach(day => {
-  const column = document.createElement("div");
-  column.className = "day-column";
-  column.innerHTML = `<h4>${day}</h4><div id="${day.toLowerCase()}-events" class="day-events"></div>`;
-  container.appendChild(column);
-  loadEvents(`${day.toLowerCase()}-events`, day.toLowerCase());
-});
+if (upcomingDays.length === 0) {
+  // Optional: show a small message on Fridays
+  // container.innerHTML = `<div class="no-upcoming">No more school days this week</div>`;
+} else {
+  upcomingDays.forEach(day => {
+    const column = document.createElement("div");
+    column.className = "day-column";
+    column.innerHTML = `<h4>${day}</h4><div id="${day.toLowerCase()}-events" class="day-events"></div>`;
+    container.appendChild(column);
+    loadEvents(`${day.toLowerCase()}-events`, day.toLowerCase());
+  });
+}
 
 // === Load Events Helper ===
 function loadEvents(targetId, fileName) {
-  fetch(`events/${fileName}.txt`)
-    .then(res => res.ok ? res.text() : "")
+  const url = `./events/${fileName}.txt`; // make path explicitly relative
+  fetch(url)
+    .then(res => {
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText} → ${url}`);
+      return res.text();
+    })
     .then(text => {
       const box = document.getElementById(targetId);
       if (!box) return;
@@ -187,12 +190,20 @@ function loadEvents(targetId, fileName) {
       wrapper.classList.add("event-html");
       wrapper.innerHTML = text.trim();
       box.appendChild(wrapper);
+      // Make the text fit but stay as large as possible
+        fitTextToContainer(wrapper, 1.0); // you can try 1.1 or 1.2 if you want a larger floor
+        
+
+      // Make the text fit but stay as large as possible
+
     })
-    .catch(() => {
+    .catch(err => {
+      console.error("[Events]", err);
       const box = document.getElementById(targetId);
       if (box) box.textContent = "No events found.";
     });
 }
+
 
 // === Time-Based Background Logic ===
 function updateBackgroundColorByTime() {
@@ -234,4 +245,64 @@ window.addEventListener("DOMContentLoaded", () => {
   }, 600000); // every 10 minutes
 });
 
+function fitTextToContainer(element, minEm = 1.0) {
+  const parent = element.parentElement;
+  // read current size (set by CSS clamp) as the starting point
+  const start = parseFloat(getComputedStyle(element).fontSize) / 16; // px → em
+  let size = start;
 
+  // guard against NaN
+  if (!Number.isFinite(size) || size <= 0) size = 2;
+
+  element.style.fontSize = `${size}em`;
+  element.style.wordBreak = 'break-word';
+
+  // shrink in small steps until it fits or we reach minEm
+  while (
+    (element.scrollHeight > parent.clientHeight ||
+     element.scrollWidth  > parent.clientWidth) &&
+    size > minEm
+  ) {
+    size = Math.max(minEm, +(size - 0.05).toFixed(2));
+    element.style.fontSize = `${size}em`;
+  }
+}
+// Make the text large relative to its container height, then shrink if it overflows
+function fitUpcomingEvents(element, targetLines = 3, minEm = 1.1, maxEm = 3.0) {
+  const parent = element.parentElement; // .day-events
+  if (!parent) return;
+
+  // Estimate a starting font-size so ~targetLines would fill the height.
+  // height / (targetLines * lineHeight) → px per "line" → convert to em
+  const parentH = parent.clientHeight || 1;           // px
+  const lineH = 1.2;                                  // matches CSS line-height
+  let startPx = parentH / (targetLines * lineH);      // px per line
+  let startEm = +(startPx / 16).toFixed(2);           // convert to em (assuming 16px base)
+
+  // Clamp to our allowed range
+  let size = Math.max(minEm, Math.min(maxEm, startEm));
+  element.style.fontSize = `${size}em`;
+
+  // If it still overflows, shrink in small steps until it fits or hits minEm
+  while (
+    (element.scrollHeight > parent.clientHeight || element.scrollWidth > parent.clientWidth) &&
+    size > minEm
+  ) {
+    size = +(Math.max(minEm, size - 0.05)).toFixed(2);
+    element.style.fontSize = `${size}em`;
+  }
+}
+// After: box.appendChild(wrapper);
+
+// For TODAY box you can keep your existing fitter.
+// For UPCOMING boxes, use the height-based fitter:
+if (box.classList.contains('day-events')) {
+  fitUpcomingEvents(wrapper, 3, 1.1, 3.0); // try targetLines=2 for even larger text
+} else {
+  // keep your existing fitTextToContainer(wrapper) for the big "today" box, if you like
+}
+
+const weekStr = document.getElementById('week-string');
+if (weekStr) {
+  weekStr.textContent = `${currentWeek}-Week Bell Schedule`;
+}
