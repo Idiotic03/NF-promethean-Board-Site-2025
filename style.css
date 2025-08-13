@@ -150,7 +150,7 @@ body {
 }
 
 .welcome-big {
-  font-size: 2.8em;
+  font-size: 3.2em;
   font-weight: 800;
   margin-top: -2px;
   margin-bottom: 5px;
@@ -180,7 +180,7 @@ body {
   display: flex;
   gap: 10px;
   justify-content: space-between;
-  height: 300px;
+  height: 400px;
 }
 
 
@@ -193,8 +193,8 @@ body {
 .day-column h4 {
   margin: 0;
   padding: 8px 12px;
-  font-size: 1.3em;
-  font-weight: 600;
+  font-size: 1.4em;
+  font-weight: 700;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #f0f0f0;
   border-bottom: 2px solid #ccc;
@@ -313,14 +313,19 @@ body {
   text-align: center;
 }
 
-/* Content auto-scales based on container type */
+/* Today’s big events box */
 .events-box .event-html {
-  font-size: min(1.9vw, 1.9vh); /* large today box */
+  /* Starts big, but won’t exceed 3em, and stays sensible on short screens */
+  font-size: clamp(1.2em, 2.6vh, 3em);
+  line-height: 1.2;
 }
 
+/* Upcoming days (right-side columns) — bigger start size */
 .day-events .event-html {
-  font-size: min(1vw, 1vh); /* smaller upcoming boxes */
+  font-size: clamp(1.2em, 2.4vh, 2.6em);
+  line-height: 1.2;
 }
+
 
 /* Neutralize inner margins and enforce scaling */
 .event-html * {
@@ -356,3 +361,7 @@ body {
   }
 }
 
+#week-string {
+  font-size: 1em !important;   /* bump as needed */
+  font-weight: 600 !important;    /* bold */
+}
