@@ -1,5 +1,5 @@
 <h1 style="color:rgb(12, 14, 1); font-size: 3em; text-shadow: 2px 2px rgb(255, 255, 255);">
-  📘 This Week is a <span style="color: #d7263d;">A Week</span>
+  📘 This Week is a <span style="color: #d9534f;">A Week</span>
 </h1>
 <p style="font-size: 1.8em; color: #118ab2;">
   Follow the A Week schedule all week long.
@@ -11,3 +11,4 @@
 <p style="font-size: 1.8em; color: #118ab2;">
   Advisory is happening today — please follow the schedule.
 </p>
+
