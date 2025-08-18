@@ -1,13 +1,13 @@
 <h1 style="color:rgb(12, 14, 1); font-size: 3em; text-shadow: 2px 2px rgb(255, 255, 255);">
-  📘 This Week is a <span style="color: #0275d8;">A Week</span>
+  📘 This Week is a <span style="color: #d7263d;">A Week</span>
 </h1>
 <p style="font-size: 1.8em; color: #118ab2;">
   Follow the A Week schedule all week long.
 </p>
 
 <h1 style="color: #06d6a0; font-size: 3em; text-shadow: 1px 1px #073b4c;">
-  📚 Tutoring Today
+  📝 Advisory Today
 </h1>
 <p style="font-size: 1.8em; color: #118ab2;">
-  Tutoring is available today — take advantage of the extra help!
+  Advisory is happening today — please follow the schedule.
 </p>
