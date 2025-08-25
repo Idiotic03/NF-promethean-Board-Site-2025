@@ -1,10 +1,24 @@
-<h1 style="color: #d7263d; font-size: 3em; text-shadow: 2px 2px #ffd166;">📚 Tutoring Today 📚</h1>
-<p style="font-size: 1.8em; color: #0077b6;">
-  There’s <strong style="color: #ef476f;">Tutoring Today</strong> — Take advantage of the extra help!
-
-</p>
-
-<h1 style="color: #06d6a0; font-size: 3em; text-shadow: 1px 1px #073b4c;">🏥 Health Services Available</h1>
-<p style="font-size: 1.8em; color: #118ab2;">
-  Our School-Based Health Center will be open from <strong style="color: #ef476f;">9:00 AM – 1:00 PM</strong>, providing services to students and their infants, including primary care and sick visits.
-</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Wednesday, August 27th</title>
+</head>
+<body style="font-family: system-ui, sans-serif; color:#111; margin:0.5rem;">
+  <h1 style="font-size:2.2em; margin:0.2em 0;">Wednesday, August 27th</h1>
+  <ul style="list-style:none; padding-left:0; margin:0.4em 0;">
+    <li style="margin:0.25em 0; font-size:1.6em;">
+      <span style="color:#333;">•</span>
+      <span> <strong>9:00 am – 1:00 pm</strong> School Based Health Center open</span>
+    </li>
+    <li style="margin:0.25em 0; font-size:1.6em;">
+      <span style="color:#0275d8;">•</span>
+      <span> <strong>9:43 am – 10:43 am</strong> Senior Meeting</span>
+    </li>
+    <li style="margin:0.25em 0; font-size:1.6em;">
+      <span style="color:#06d6a0;">•</span>
+      <span> <strong>11:45 am – 12:16 pm</strong> Tutoring</span>
+    </li>
+  </ul>
+</body>
+</html>
