@@ -1,10 +1,20 @@
-<h1 style="color: #d7263d; font-size: 3em; text-shadow: 2px 2px #ffd166;">👶 WIC on Campus</h1>
-<p style="font-size: 1.8em; color: #0077b6;">
-  Tuesday, August 12 – WIC will be on campus from <strong style="color: #ef476f;">9:00 AM – 12:30 PM</strong>.
-</p>
-
-<h1 style="color: #d7263d; font-size: 3em; text-shadow: 2px 2px #ffd166;">📚 Tutoring Today 📚</h1>
-<p style="font-size: 1.8em; color: #0077b6;">
-  There’s <strong style="color: #ef476f;">Tutoring Today</strong> — Take advantage of the extra help!
-
-</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tuesday, August 26th</title>
+</head>
+<body style="font-family: system-ui, sans-serif; color:#111; margin:0.5rem;">
+  <h1 style="font-size:2.2em; margin:0.2em 0;">Tuesday, August 26th</h1>
+  <ul style="list-style:none; padding-left:0; margin:0.4em 0;">
+    <li style="margin:0.25em 0; font-size:1.6em;">
+      <span style="color:#06d6a0;">•</span>
+      <span> <strong>9:00 am – 12:30 pm</strong> WIC on campus</span>
+    </li>
+    <li style="margin:0.25em 0; font-size:1.6em;">
+      <span style="color:#06d6a0;">•</span>
+      <span> <strong>12:59 pm – 1:29 pm</strong> Tutoring</span>
+    </li>
+  </ul>
+</body>
+</html>
