@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Friday, August 29th</title>
+  <title>Friday</title>
 </head>
 <body style="font-family: system-ui, sans-serif; color:#111; margin:0.5rem;">
-  <h1 style="font-size:2.2em; margin:0.2em 0;">Friday, August 29th</h1>
+  <h1 style="font-size:2.2em; margin:0.2em 0;">Friday</h1>
   <ul style="list-style:none; padding-left:0; margin:0.4em 0;">
     <li style="margin:0.25em 0; font-size:1.6em;">
       <span style="color:#7b5de6;">•</span>
-      <span> <strong>12:59 pm – 1:59 pm</strong> Discovery Hour</span>
+      <span><strong>Discovery Hour is happening today.</strong></span>
     </li>
   </ul>
 </body>
