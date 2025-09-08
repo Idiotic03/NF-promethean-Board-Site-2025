@@ -9,8 +9,9 @@
   <ul style="list-style:none; padding-left:0; margin:0.4em 0;">
     <li style="margin:0.25em 0; font-size:1.6em;">
       <span style="color:#7b5de6;">•</span>
-      <span><strong>Discovery Hour is happening today.</strong></span>
+      <span><strong>12:59 pm Discovery Hour Goodwill Presentation!</strong></span>
     </li>
   </ul>
 </body>
 </html>
+
