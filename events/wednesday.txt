@@ -9,12 +9,13 @@
   <ul style="list-style:none; padding-left:0; margin:0.4em 0;">
       <li style="margin:0.25em 0; font-size:1.6em;">
       <span style="color:#06d6a0;">•</span>
-      <span><strong>Tutoring is happening today.</strong></span>
+      <span><strong>12:59 - 1:29 pm Tutoring today.</strong></span>
     </li>  
       <li style="margin:0.25em 0; font-size:1.6em;">
           <span style="color:#333;">•</span>
-          <span><strong>9:00 am – 1:00 pm</strong> School Based Health Center open</span>
+          <span><strong>9:00 am – 1:00 pm</strong> School Based Health Center</span>
         </li>
   </ul>
 </body>
 </html>
+
