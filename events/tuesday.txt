@@ -12,8 +12,16 @@
       <span><strong>9:00 am – 12:30 pm</strong> WIC on campus</span>
     </li>
     <li style="margin:0.25em 0; font-size:1.6em;">
+      <span style="color:#d7263d;">•</span>
+      <span><strong>2nd Period</strong> – Skills, Habits and Mindsets Survey</span>
+    </li>
+    <li style="margin:0.25em 0; font-size:1.6em;">
+      <span style="color:#111;">•</span>
+      <span>Senior Meeting</span>
+    </li>
+    <li style="margin:0.25em 0; font-size:1.6em;">
       <span style="color:#06d6a0;">•</span>
-      <span><strong>Tutoring</strong></span>
+      <span><strong>11:45 am – 12:16 pm</strong> Tutoring</span>
     </li>
   </ul>
 </body>
