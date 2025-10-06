@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Tuesday</title>
+  <title>Tuesday (B-Week)</title>
 </head>
 <body style="font-family: system-ui, sans-serif; color:#111; margin:0.5rem;">
   <h1 style="font-size:2.2em; margin:0.2em 0;">Tuesday</h1>
@@ -12,16 +12,8 @@
       <span><strong>9:00 am – 12:30 pm</strong> WIC on campus</span>
     </li>
     <li style="margin:0.25em 0; font-size:1.6em;">
-      <span style="color:#d7263d;">•</span>
-      <span><strong>2nd Period</strong> – Skills, Habits and Mindsets Survey</span>
-    </li>
-    <li style="margin:0.25em 0; font-size:1.6em;">
-      <span style="color:#111;">•</span>
-      <span>Senior Meeting</span>
-    </li>
-    <li style="margin:0.25em 0; font-size:1.6em;">
       <span style="color:#06d6a0;">•</span>
-      <span><strong>11:45 am – 12:16 pm</strong> Tutoring</span>
+      <span><strong>12:59 pm – 1:29 pm</strong> Tutoring</span>
     </li>
   </ul>
 </body>
