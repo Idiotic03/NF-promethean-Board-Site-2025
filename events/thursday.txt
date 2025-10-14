@@ -11,10 +11,6 @@
       <span style="color:#06d6a0;">•</span>
       <span><strong>No Tutoring</strong></span>
     </li>
-    <li style="margin:0.25em 0; font-size:1.6em;">
-      <span style="color:#7b5de6;">•</span>
-      <span><strong>Harvest Festival</strong></span>
-    </li>
   </ul>
 </body>
 </html>
