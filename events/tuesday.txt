@@ -9,7 +9,15 @@
   <ul style="list-style:none; padding-left:0; margin:0.4em 0;">
     <li style="margin:0.25em 0; font-size:1.6em;">
       <span style="color:#06d6a0;">•</span>
-      <span><strong>No Tutoring</strong></span>
+      <span><strong>9:00 am – 12:30 pm</strong> WIC on campus</span>
+    </li>
+    <li style="margin:0.25em 0; font-size:1.6em;">
+      <span>•</span>
+      <span><strong>Senior Meeting</strong></span>
+    </li>
+    <li style="margin:0.25em 0; font-size:1.6em;">
+      <span style="color:#06d6a0;">•</span>
+      <span><strong>11:45 am – 12:16 pm</strong> Tutoring</span>
     </li>
   </ul>
 </body>
