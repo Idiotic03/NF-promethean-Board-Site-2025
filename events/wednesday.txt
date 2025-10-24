@@ -7,21 +7,14 @@
 <body style="font-family: system-ui, sans-serif; color:#111; margin:0.5rem;">
   <h1 style="font-size:2.2em; margin:0.2em 0;">Wednesday</h1>
   <ul style="list-style:none; padding-left:0; margin:0.4em 0;">
+    </li>
     <li style="margin:0.25em 0; font-size:1.6em;">
       <span style="color:#333;">•</span>
-      <span><strong>9:00 am – 1:00 pm</strong> School Based Health Center open for students and babies</span>
+      <span><strong>9:00 am – 1:00 pm</strong> School Based Health Center open</span>
     </li>
     <li style="margin:0.25em 0; font-size:1.6em;">
       <span style="color:#06d6a0;">•</span>
-      <span><strong>11:45 am – 12:16 pm</strong> Tutoring</span>
-    </li>
-    <li style="margin:0.35em 0; font-size:1.6em;">
-      <span>•</span>
-      <span><strong>College/Career Fair</strong> 2:00 – 3:00 p.m.</span>
-      <ul style="list-style:none; padding-left:1.2em; margin:0.2em 0;">
-        <li style="margin:0.15em 0; font-size:0.95em;"><span>•</span> 3rd: 12:59 – 1:55 p.m.</li>
-        <li style="margin:0.15em 0; font-size:0.95em;"><span>•</span> 4th: 3:05 – 4:00 p.m.</li>
-      </ul>
+      <span><strong>12:59 pm – 1:29 pm</strong> Tutoring</span>
     </li>
   </ul>
 </body>
