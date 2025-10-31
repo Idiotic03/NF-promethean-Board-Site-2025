@@ -236,25 +236,25 @@ body {
 /* === INDIVIDUAL LAYERS === */
 .layer2 {
   z-index: 5;
-  background-image: url("Brush-02.png");
+  background-image: url("scary bushes.png");
   animation: scroll2 40s linear infinite;
 }
 
 .layer3 {
   z-index: 4;
-  background-image: url("Skyline-03.png");
+  background-image: url("scary city.png");
   animation: scroll3 80s linear infinite;
 }
 
 .layer4 {
   z-index: 3;
-  background-image: url("Mountains-04.png");
+  background-image: url("scary mountains.png");
   animation: scroll4 115s linear infinite;
 }
 
 .layer5 {
   z-index: 2;
-  background-image: url("Clouds-05.png");
+  background-image: url("scary clouds.png");
   animation: scroll7 55s linear infinite;
   transition: filter 1s ease;
 }
@@ -365,3 +365,4 @@ body {
   font-size: 1em !important;   /* bump as needed */
   font-weight: 600 !important;    /* bold */
 }
+
