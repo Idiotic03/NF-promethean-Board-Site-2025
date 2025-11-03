@@ -9,15 +9,7 @@
   <ul style="list-style:none; padding-left:0; margin:0.4em 0;">
     <li style="margin:0.25em 0; font-size:1.6em;">
       <span style="color:#7b5de6;">•</span>
-      <span><strong>9:15 am – 9:55 am</strong> Monster’s Ball in the Cafeteria</span>
-    </li>
-    <li style="margin:0.25em 0; font-size:1.4em;">
-      <span style="color:#7b5de6;">•</span>
-      <span>Students, Infants, and Staff come in costume – Long Advisory</span>
-    </li>
-    <li style="margin:0.25em 0; font-size:1.4em;">
-      <span style="color:#d7263d;">•</span>
-      <span><strong>No Discovery Hour</strong></span>
+      <span><strong>11:15 am – 12:16 pm</strong> Discovery Hour</span>
     </li>
   </ul>
 </body>
