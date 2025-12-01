@@ -8,16 +8,8 @@
   <h1 style="font-size:2.2em; margin:0.2em 0;">Tuesday</h1>
   <ul style="list-style:none; padding-left:0; margin:0.4em 0;">
     <li style="margin:0.25em 0; font-size:1.6em;">
-      <span style="color:#06d6a0;">•</span>
-      <span><strong>WIC on Campus</strong></span>
-    </li>
-    <li style="margin:0.25em 0; font-size:1.6em;">
-      <span style="color:#06d6a0;">•</span>
-      <span><strong>11:45 am – 12:16 pm</strong> Tutoring</span>
-    </li>
-    <li style="margin:0.25em 0; font-size:1.6em;">
-      <span style="color:#d7263d;">•</span>
-      <span><strong>3:00 pm – 4:00 pm</strong> Senior Meeting</span>
+      <span style="color:#0275d8;">•</span>
+      <span><strong>12:59 pm – 1:29 pm</strong> Tutoring</span>
     </li>
   </ul>
 </body>
