@@ -4,7 +4,7 @@ const DEBUG_DATE = new Date("2025-08-15T16:00:00");
 
 
 function getCurrentWeek() {
-  const startDate = new Date("2025-10-20"); // Set your first A-week Monday here
+  const startDate = new Date("2025-12-08"); // Set your first A-week Monday here
   const now = DEBUG_MODE ? DEBUG_DATE : new Date();
 
   const diffInDays = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
@@ -12,4 +12,5 @@ function getCurrentWeek() {
 
   return weeksPassed % 2 === 0 ? "A" : "B"; // Even weeks are A-week
 }
+
 
