@@ -9,11 +9,11 @@
   <ul style="list-style:none; padding-left:0; margin:0.4em 0;">
     <li style="margin:0.25em 0; font-size:1.6em;">
       <span style="color:#06d6a0;">•</span>
-      <span><strong>Mad About Plaid</strong></span>
+      <span><strong>MAKE UP FINALS</strong></span>
     </li>
     <li style="margin:0.25em 0; font-size:1.6em;">
-      <span style="color:#7b5de6;">•</span>
-      <span><strong>11:15 am – 12:16 pm</strong> Discovery Hour</span>
+      <span style="color:#ff7a00;">•</span>
+      <span><strong>WINTER BREAK</strong> (Dec 22 – Jan 22)</span>
     </li>
   </ul>
 </body>
