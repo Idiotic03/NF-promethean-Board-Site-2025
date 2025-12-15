@@ -12,7 +12,7 @@ let todayName = weekdays[currentDayIndex];
 let weekType;
 
 function isAWeek() {
-  const startDate = new Date("2025-12-15"); // Set your first A-week Monday here
+  const startDate = new Date("2025-12-8"); // Set your first A-week Monday here
   const nowDate = DEBUG_MODE ? new Date(DEBUG_DATE) : new Date();
 
   const diffInDays = Math.floor((nowDate - startDate) / (1000 * 60 * 60 * 24));
@@ -233,6 +233,7 @@ window.addEventListener("DOMContentLoaded", () => {
     updateBackgroundColorByTime();
   }, 600000); // every 10 minutes
 });
+
 
 
 
