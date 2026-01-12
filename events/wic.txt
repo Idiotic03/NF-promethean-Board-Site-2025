@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WIC on Campus</title>
+</head>
+<body style="font-family: system-ui, sans-serif; color:#111; margin:0.7rem;">
+  <h1 style="font-size:3.4em; margin:0.15em 0; letter-spacing:0.02em; color:#FF9800;">
+    👶 WIC ON CAMPUS 👶
+  </h1>
+
+  <ul style="list-style:none; padding-left:0; margin:0.5em 0;">
+    <li style="margin:0.35em 0; font-size:1.9em;">
+      <span style="color:#222;">•</span>
+      <span><strong>Every Tuesday</strong></span>
+    </li>
+
+    <li style="margin:0.35em 0; font-size:1.9em;">
+      <span style="color:#00BFFF;">•</span>
+      <span><strong>9:00 am – 12:30 pm</strong></span>
+    </li>
+
+    <li style="margin:0.35em 0; font-size:1.9em;">
+      <span style="color:#28A745;">•</span>
+      <span>Stop by for support &amp; resources!</span>
+    </li>
+  </ul>
+</body>
+</html>
