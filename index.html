@@ -147,6 +147,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<!-- === TOGGLE COMPACT MODE WITH ENTER KEY === -->
+<script>
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    document.body.classList.toggle("compact-mode");
+    console.log("Display mode toggled:", document.body.classList.contains("compact-mode") ? "Compact (Normal Computer)" : "Large (Promethean Board)");
+  }
+});
+</script>
+
 
 </body>
 </html>
