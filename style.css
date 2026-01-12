@@ -38,7 +38,7 @@ body {
 }
 
 #day-name {
-  font-size: 3em;
+  font-size: 4em;
   font-weight: bold;
   color: #222;
   background: rgba(255, 255, 255, 0.85);
@@ -64,7 +64,7 @@ body {
   padding: 8px;
   font-weight: bold;
   border-bottom: 2px solid #000;
-  font-size: 1.1em;
+  font-size: 1.5em;
   text-align: center;
 }
 
@@ -94,7 +94,7 @@ body {
 .schedule-box table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 1.3em; /* Increased font size */
+  font-size: 1.6em; /* Increased font size */
 }
 
 .schedule-box td {
@@ -110,7 +110,7 @@ body {
 
 /* === WEEK LABEL === */
 .week-label {
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: bold;
   text-align: center;
   padding: 8px 10px;
@@ -212,6 +212,9 @@ body {
   margin-top: 20px;
   opacity: 1;
   transition: opacity 1s ease-in-out;
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .carousel-body {
@@ -220,6 +223,9 @@ body {
   padding: 10px;
   font-size: 1.1em;
   position: relative;
+  will-change: contents;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .carousel-content {
@@ -238,6 +244,14 @@ body {
   text-align: center;
   opacity: 0;
   transition: opacity 1s ease-in-out;
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .carousel-content.active {
@@ -250,8 +264,9 @@ body {
 
 .news-carousel.hidden {
   opacity: 0 !important;
+  visibility: hidden !important;
   pointer-events: none;
-  transition: opacity 1s ease-in-out !important;
+  transition: opacity 1s ease-in-out, visibility 0s 1s !important;
   animation: none !important;
 }
 
@@ -276,10 +291,13 @@ body {
   box-sizing: border-box;
   gap: 15px;
   will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: layout style paint;
 }
 
 .attendance-today {
-  font-size: 2.5em;
+  font-size: 3em;
   font-weight: bold;
   text-align: center;
 }
@@ -297,7 +315,7 @@ body {
 }
 
 .attendance-comparison {
-  font-size: 1.2em;
+  font-size: 1.5em;
   color: #555;
   text-align: center;
 }
@@ -321,7 +339,7 @@ body {
 }
 
 .chart-bar-label {
-  font-size: 1em;
+  font-size: 1.3em;
   font-weight: bold;
   color: #222;
 }
@@ -345,26 +363,26 @@ body {
 }
 
 .chart-bar-value {
-  font-size: 0.95em;
+  font-size: 1.2em;
   font-weight: bold;
   color: #0275d8;
 }
 
 .welcome-small {
-  font-size: 2em;
+  font-size: 2.5em;
   font-weight: 500;
   margin-bottom: 0;
 }
 
 .welcome-big {
-  font-size: 3.2em;
+  font-size: 4em;
   font-weight: 800;
   margin-top: -2px;
   margin-bottom: 5px;
 }
 
 .date-time-large {
-  font-size: 2em;
+  font-size: 2.5em;
   font-weight: 500;
 }
 
@@ -400,7 +418,7 @@ body {
 .day-column h4 {
   margin: 0;
   padding: 8px 12px;
-  font-size: 1.4em;
+  font-size: 1.8em;
   font-weight: 700;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #f0f0f0;
