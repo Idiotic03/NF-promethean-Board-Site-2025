@@ -539,7 +539,11 @@ function displayScheduleInfo() {
   const previousItem = container.querySelector('.carousel-content');
   if (previousItem) {
     previousItem.classList.remove('active');
-    setTimeout(() => previousItem.remove(), 1000);
+    setTimeout(() => {
+      if (previousItem.parentNode === container) {
+        previousItem.remove();
+      }
+    }, 1000);
   }
   
   // Create schedule info slide
@@ -547,12 +551,16 @@ function displayScheduleInfo() {
   const item = document.createElement('div');
   item.classList.add('carousel-content');
   item.innerHTML = html;
-  container.appendChild(item);
   
-  // Trigger fade in
-  setTimeout(() => {
-    item.classList.add('active');
-  }, 50);
+  // Batch DOM operations
+  requestAnimationFrame(() => {
+    container.appendChild(item);
+    
+    // Trigger fade in on next frame
+    requestAnimationFrame(() => {
+      item.classList.add('active');
+    });
+  });
   
   // Schedule next item after 6 seconds
   clearTimeout(carouselTimer);
@@ -570,41 +578,49 @@ function displayScheduleInfo() {
 function displayCarouselItem(content) {
   const container = document.getElementById('news-carousel-content');
   
-  // Remove previous item
+  // Remove previous item more efficiently
   const previousItem = container.querySelector('.carousel-content');
   if (previousItem) {
     previousItem.classList.remove('active');
-    setTimeout(() => previousItem.remove(), 1000);
+    setTimeout(() => {
+      if (previousItem.parentNode === container) {
+        previousItem.remove();
+      }
+    }, 1000);
   }
   
   // Create new item
   const item = document.createElement('div');
   item.classList.add('carousel-content', 'event-html');
   item.innerHTML = content.trim();
-  container.appendChild(item);
   
-  // Trigger fade in
-  setTimeout(() => {
-    item.classList.add('active');
-  }, 50);
-  
-  // Fit text and schedule next item
+  // Use requestAnimationFrame to batch DOM operations
   requestAnimationFrame(() => {
-    fitTextToContainer(item, 1.3);
+    container.appendChild(item);
     
-    // Schedule next item after 6 seconds of display (fade happens during display time)
-    clearTimeout(carouselTimer);
-    carouselTimer = setTimeout(() => {
-      carouselIndex = (carouselIndex + 1) % carouselData.length;
+    // Trigger fade in on next frame
+    requestAnimationFrame(() => {
+      item.classList.add('active');
       
-      // If we've cycled through all, hide the carousel for 30 seconds before repeating
-      if (carouselIndex === 0) {
-        hideCarouselTemporarily();
-      } else {
-        loadNextCarouselItem();
-      }
-    }, 6000);
+      // Fit text after transitions settle
+      requestAnimationFrame(() => {
+        fitTextToContainer(item, 1.3);
+      });
+    });
   });
+  
+  // Schedule next item after 6 seconds of display (fade happens during display time)
+  clearTimeout(carouselTimer);
+  carouselTimer = setTimeout(() => {
+    carouselIndex = (carouselIndex + 1) % carouselData.length;
+    
+    // If we've cycled through all, hide the carousel for 30 seconds before repeating
+    if (carouselIndex === 0) {
+      hideCarouselTemporarily();
+    } else {
+      loadNextCarouselItem();
+    }
+  }, 6000);
 }
 
 function hideCarouselTemporarily() {
@@ -612,8 +628,10 @@ function hideCarouselTemporarily() {
   console.log("[Carousel] Hiding carousel temporarily...", carouselBox);
   
   if (carouselBox) {
-    carouselBox.classList.add('hidden');
-    console.log("[Carousel] Hidden class added. Classes:", carouselBox.className);
+    requestAnimationFrame(() => {
+      carouselBox.classList.add('hidden');
+      console.log("[Carousel] Hidden class added. Classes:", carouselBox.className);
+    });
   }
   
   clearInterval(attendanceRefreshTimer);
@@ -622,7 +640,9 @@ function hideCarouselTemporarily() {
   carouselTimer = setTimeout(() => {
     console.log("[Carousel] Showing carousel again...");
     if (carouselBox) {
-      carouselBox.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        carouselBox.classList.remove('hidden');
+      });
     }
     carouselIndex = 0;
     loadNextCarouselItem();
@@ -694,7 +714,11 @@ function displayAttendanceDashboard() {
   const previousItem = container.querySelector('.carousel-content');
   if (previousItem) {
     previousItem.classList.remove('active');
-    setTimeout(() => previousItem.remove(), 1000);
+    setTimeout(() => {
+      if (previousItem.parentNode === container) {
+        previousItem.remove();
+      }
+    }, 1000);
   }
   
   // Fetch initial data and display
@@ -708,17 +732,26 @@ function displayAttendanceDashboard() {
     const item = document.createElement('div');
     item.classList.add('carousel-content', 'attendance-dashboard');
     item.innerHTML = dashboardHTML;
-    container.appendChild(item);
     
-    setTimeout(() => item.classList.add('active'), 50);
+    // Batch DOM operations
+    requestAnimationFrame(() => {
+      container.appendChild(item);
+      
+      requestAnimationFrame(() => {
+        item.classList.add('active');
+      });
+    });
     
     // Auto-refresh every 5 seconds
     clearInterval(attendanceRefreshTimer);
     attendanceRefreshTimer = setInterval(() => {
       fetchAttendanceData().then(data => {
-        if (data) {
-          const updatedHTML = buildAttendanceDashboard(data);
-          item.innerHTML = updatedHTML;
+        if (data && item.parentNode === container) {
+          // Use requestAnimationFrame to batch updates
+          requestAnimationFrame(() => {
+            const updatedHTML = buildAttendanceDashboard(data);
+            item.innerHTML = updatedHTML;
+          });
         }
       });
     }, 5000);
