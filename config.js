@@ -2,7 +2,7 @@
 
 // Determine current week type (A or B) based on start date
 function getCurrentWeek() {
-  const startDate = new Date("2024-01-12"); // Set your first A-week Monday here
+  const startDate = new Date("2026-01-12"); // Set your first A-week Monday here
   const now = new Date();
   const diffInDays = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
   const weeksPassed = Math.floor(diffInDays / 7);
@@ -73,4 +73,5 @@ window.SCHEDULE_META = {
   LONG_ADVISORY: { label: 'Long Advisory', color: '#9b59b6' },
   DELAYED: { label: 'Delayed Start', color: '#e67e22' }
 };
+
 
