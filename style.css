@@ -612,3 +612,51 @@ body {
   font-size: 1em !important;   /* bump as needed */
   font-weight: 600 !important;    /* bold */
 }
+/* === COMPACT MODE (Press Enter to toggle) === */
+body.compact-mode #day-name {
+  font-size: 3em;
+}
+
+body.compact-mode .box-header {
+  font-size: 1.1em;
+}
+
+body.compact-mode .schedule-box table {
+  font-size: 1.3em;
+}
+
+body.compact-mode .week-label {
+  font-size: 1.5em;
+}
+
+body.compact-mode .welcome-small {
+  font-size: 2em;
+}
+
+body.compact-mode .welcome-big {
+  font-size: 3.2em;
+}
+
+body.compact-mode .date-time-large {
+  font-size: 2em;
+}
+
+body.compact-mode .day-column h4 {
+  font-size: 1.4em;
+}
+
+body.compact-mode .attendance-today {
+  font-size: 2.5em;
+}
+
+body.compact-mode .attendance-comparison {
+  font-size: 1.2em;
+}
+
+body.compact-mode .chart-bar-label {
+  font-size: 1em;
+}
+
+body.compact-mode .chart-bar-value {
+  font-size: 0.95em;
+}
