@@ -1,3 +1,7 @@
+/* ============================================
+   PROMETHEAN BOARD DISPLAY STYLESHEET
+   ============================================ */
+
 /* === GENERAL BODY === */
 body {
   margin: 0;
@@ -12,7 +16,7 @@ body {
 /* === MAIN LAYOUT === */
 .main-layout {
   display: flex;
-  height: calc(100vh - 10px); /* subtract padding */
+  height: calc(100vh - 10px);
   padding: 20px;
   gap: 20px;
   box-sizing: border-box;
@@ -25,7 +29,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  flex: 1;
+  flex: 1.3;
   height: 100%;
 }
 
@@ -77,6 +81,11 @@ body {
   font-size: 1.1em;
 }
 
+/* Keep box bodies positioned for absolute child positioning */
+.box .box-body {
+  position: relative;
+}
+
 /* === SCHEDULE TABLE === */
 .schedule-box .box-body {
   padding: 0;
@@ -119,7 +128,7 @@ body {
 
 /* === RIGHT COLUMN === */
 .right-column {
-  flex: 2;
+  flex: 1.7;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -138,9 +147,207 @@ body {
   padding: 10px 20px;
   background: rgba(255, 255, 255, 0.85);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  width: fit-content;
+  width: 800px; /* fixed width */
+  height: 275px; /* fixed height (increased for padding) */
+  box-sizing: border-box;
+  flex: 0 0 auto; /* lock size against flex resizing */
+  margin: 0;
+  overflow: hidden;
+  padding-bottom: 20px; /* ensure bottom padding so text isn't cut off */
+}
+
+/* Header row to hold QR box and header side-by-side */
+.header-row {
+  display: flex;
+  gap: 8px; /* reduced gap to bring QR box closer */
+  margin-left: auto; /* push the whole row to the right */
+  align-items: stretch; /* make children match height */
+}
+
+/* QR box matches general .box styling but remains square (matches header height) */
+.qr-box {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  width: 275px; /* fixed square size (match header height) */
+  height: 275px; /* fixed square size (match header height) */
+  border: 2px solid #000;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.qr-box .box-header {
+  padding: 6px 8px;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+  flex: 0 0 auto;
+}
+
+.qr-box .box-body {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.qr-box img {
   max-width: 100%;
-  margin-left: auto;
+  max-height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+/* === NEWS CAROUSEL === */
+.news-carousel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.carousel-body {
+  flex-grow: 1;
+  overflow: hidden;
+  padding: 10px;
+  font-size: 1.1em;
+  position: relative;
+}
+
+.carousel-content {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 1.3;
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+  margin: 0;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.carousel-content.active {
+  opacity: 1;
+}
+
+.carousel-body.hidden {
+  display: none;
+}
+
+.news-carousel.hidden {
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: opacity 1s ease-in-out !important;
+  animation: none !important;
+}
+
+/* === ATTENDANCE DASHBOARD === */
+.attendance-dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.attendance-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  gap: 15px;
+  will-change: transform;
+}
+
+.attendance-today {
+  font-size: 2.5em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.attendance-today .label {
+  font-size: 0.6em;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.attendance-today .number {
+  font-size: 1.8em;
+  color: #0275d8;
+}
+
+.attendance-comparison {
+  font-size: 1.2em;
+  color: #555;
+  text-align: center;
+}
+
+.attendance-chart {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 15px;
+  height: 150px;
+  width: 100%;
+}
+
+.chart-bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  flex: 1;
+  gap: 8px;
+}
+
+.chart-bar-label {
+  font-size: 1em;
+  font-weight: bold;
+  color: #222;
+}
+
+.chart-bar-wrapper {
+  flex: 1;
+  width: 100%;
+  background: #f0f0f0;
+  border-radius: 5px;
+  border: 2px solid #ddd;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.chart-bar {
+  width: 100%;
+  background: linear-gradient(to top, #0275d8, #4da6ff);
+  border-radius: 3px;
+  min-height: 5px;
+}
+
+.chart-bar-value {
+  font-size: 0.95em;
+  font-weight: bold;
+  color: #0275d8;
 }
 
 .welcome-small {
@@ -226,58 +433,72 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 200vw;
+  width: 200%;
   height: 100%;
-  background-repeat: repeat-x;
+  display: flex;
+  overflow: hidden;
+  will-change: transform;
+  transform: translate3d(0,0,0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transform-origin: left top;
+}
+
+/* === LAYER ANIMATIONS === */
+.layer2 { z-index: 5; animation: scroll2 40s linear infinite; }
+.layer3 { z-index: 4; animation: scroll3 80s linear infinite; }
+.layer4 { z-index: 3; animation: scroll4 115s linear infinite; }
+.layer5 { z-index: 2; animation: scroll5 55s linear infinite; transition: filter 1s ease; }
+
+/* Pause animations until backgrounds are preloaded */
+.moving-background .layer {
+  animation-play-state: paused;
+}
+
+.bg-ready .moving-background .layer {
+  animation-play-state: running;
+}
+
+/* Disable CSS animations when JS loop is active */
+.js-bg-loop .moving-background .layer {
+  animation: none !important;
+}
+
+/* Style layer slides */
+.moving-background .layer .slide {
+  flex: 0 0 50%;
+  height: 100%;
+  background-repeat: no-repeat;
   background-size: cover;
-  background-position: 0 0;
+  background-position: center center;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
-/* === INDIVIDUAL LAYERS === */
-.layer2 {
-  z-index: 5;
-  background-image: url("Brush-02.png");
-  animation: scroll2 40s linear infinite;
-}
-
-.layer3 {
-  z-index: 4;
-  background-image: url("Skyline-03.png");
-  animation: scroll3 80s linear infinite;
-}
-
-.layer4 {
-  z-index: 3;
-  background-image: url("Mountains-04.png");
-  animation: scroll4 115s linear infinite;
-}
-
-.layer5 {
-  z-index: 2;
-  background-image: url("Clouds-05.png");
-  animation: scroll7 55s linear infinite;
-  transition: filter 1s ease;
+.moving-background .layer .slide:nth-child(2) {
+  margin-left: -2px;
 }
 
 /* === SCROLL ANIMATIONS === */
 @keyframes scroll2 {
-  0% { background-position: 0 0; }
-  100% { background-position: -100vw 0; }
+  0% { transform: translate3d(0,0,0); }
+  100% { transform: translate3d(calc(-50% - 0.5px),0,0); }
 }
 
 @keyframes scroll3 {
-  0% { background-position: 0 0; }
-  100% { background-position: -100vw 0; }
+  0% { transform: translate3d(0,0,0); }
+  100% { transform: translate3d(calc(-50% - 0.5px),0,0); }
 }
 
 @keyframes scroll4 {
-  0% { background-position: 0 0; }
-  100% { background-position: -100vw 0; }
+  0% { transform: translate3d(0,0,0); }
+  100% { transform: translate3d(calc(-50% - 0.5px),0,0); }
 }
 
-@keyframes scroll7 {
-  0% { background-position: 0 0; }
-  100% { background-position: -100vw 0; }
+@keyframes scroll5 {
+  0% { transform: translate3d(0,0,0); }
+  100% { transform: translate3d(calc(-50% - 0.5px),0,0); }
 }
 
 /* === BACKGROUND COLOR LAYER === */
@@ -294,7 +515,7 @@ body {
 
 /* === LOCKED CONTAINER AND SMART HTML === */
 
-/* Container for HTML inside boxes */
+/* Container for event content inside boxes */
 .event-html {
   height: 100%;
   width: 100%;
@@ -302,27 +523,35 @@ body {
   overflow: hidden;
   line-height: 1.3;
   word-break: break-word;
-
-  /* Align content to top + center horizontally */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* top */
-  align-items: center;         /* horizontal center */
+  justify-content: flex-start;
+  align-items: center;
   padding: 10px;
   margin: 0;
   text-align: center;
 }
 
-/* Today’s big events box */
+/* Lock inner HTML absolutely so font sizing doesn't move layout */
+.box .event-html {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+}
+
+/* Font sizing for event content */
 .events-box .event-html {
-  /* Starts big, but won’t exceed 3em, and stays sensible on short screens */
-  font-size: clamp(1.2em, 2.6vh, 3em);
+  font-size: clamp(1.5em, 3.2vh, 3.8em);
   line-height: 1.2;
 }
 
-/* Upcoming days (right-side columns) — bigger start size */
+.carousel-content.event-html {
+  font-size: clamp(1.8em, 3.5vh, 4em);
+  line-height: 1.2;
+}
+
 .day-events .event-html {
-  font-size: clamp(1.2em, 2.4vh, 2.6em);
+  font-size: clamp(1.4em, 2.8vh, 3.2em);
   line-height: 1.2;
 }
 
@@ -365,5 +594,3 @@ body {
   font-size: 1em !important;   /* bump as needed */
   font-weight: 600 !important;    /* bold */
 }
-
-
