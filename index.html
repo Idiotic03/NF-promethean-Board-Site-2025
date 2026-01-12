@@ -39,7 +39,7 @@
       </div>
 
       <div class="box schedule-box fade-in">
-        <div class="box-header">SCHEDULE</div>
+        <div class="box-header">Today's Schedule</div>
         <table id="schedule-table" class="box-body"></table>
       </div>
 
@@ -47,21 +47,30 @@
     </div>
 
     <div class="right-column">
-      <div class="header-box fade-in">
-        <div class="welcome-small">Welcome to</div>
-        <div class="welcome-big">New Futures School</div>
-        <div class="date-time-large">
-          <div id="date-text">Friday, August 8, 2025</div>
-          <div id="time-text">03:45 PM</div>
-          <div id="week-string"></div>
+      <div class="header-row">
+        <div class="qr-box box fade-in">
+          <div class="box-header">Scan to Check In</div>
+          <div class="box-body qr-body">
+            <img id="qr-image" src="QR-CODE.png" alt="QR Code">
+          </div>
+        </div>
+
+        <div class="header-box fade-in">
+          <div class="welcome-small">Welcome to</div>
+          <div class="welcome-big">New Futures School</div>
+          <div class="date-time-large">
+            <div id="date-text">Friday, August 8, 2025</div>
+            <div id="time-text">03:45 PM</div>
+            <div id="week-string"></div>
+          </div>
         </div>
       </div>
 
-      <div class="week-section fade-in">
-        <div class="upcoming-days" id="upcoming-days">
-          <!-- Monday–Thursday day columns go here -->
-        </div>
+      <div class="box news-carousel fade-in">
+        <div class="box-header">Upcoming Events</div>
+        <div id="news-carousel-content" class="box-body carousel-body"></div>
       </div>
+
     </div>
   </div>
 
@@ -75,10 +84,17 @@
       const now = new Date();
 
       const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      const timeOptions = { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true };
 
       document.getElementById('date-text').textContent = now.toLocaleDateString('en-US', dateOptions);
       document.getElementById('time-text').textContent = now.toLocaleTimeString('en-US', timeOptions);
+      
+      // Update week string
+      const weekStrElem = document.getElementById('week-string');
+      if (weekStrElem && typeof getCurrentWeek === 'function') {
+        const currentWeek = getCurrentWeek(); // "A" or "B"
+        weekStrElem.textContent = `${currentWeek}-Week Bell Schedule`;
+      }
     }
 
     setInterval(updateDateTime, 1000);
@@ -92,21 +108,38 @@ function applyWeekLabel() {
   const weekStr = document.getElementById("week-string");
   if (!label) return;
 
-  const currentWeek = getCurrentWeek(); // "A" or "B"
+  const ACTIVE_SCHEDULE = window.ACTIVE_SCHEDULE || { mode: 'AUTO' };
+  const SCHEDULE_META = window.SCHEDULE_META || {};
 
-  if (currentWeek === "A") {
-    label.textContent = "A-WEEK";
-    label.classList.add("a-week");
-    label.classList.remove("b-week");
-  } else if (currentWeek === "B") {
-    label.textContent = "B-WEEK";
-    label.classList.add("b-week");
-    label.classList.remove("a-week");
+  // If a special schedule was set, it only applies for a single day.
+  const todayKey = new Date().toISOString().slice(0,10);
+  const stored = (() => { try { return localStorage.getItem('specialScheduleDate'); } catch(e) { return null; } })();
+
+  // If ACTIVE_SCHEDULE.mode is AUTO (or special expired), show A/B week label
+  if (!ACTIVE_SCHEDULE.mode || ACTIVE_SCHEDULE.mode === 'AUTO' || (stored && stored !== todayKey)) {
+    const currentWeek = getCurrentWeek(); // "A" or "B"
+    if (currentWeek === "A") {
+      label.textContent = SCHEDULE_META.A?.label || 'A-WEEK';
+      label.classList.add("a-week");
+      label.classList.remove("b-week");
+    } else {
+      label.textContent = SCHEDULE_META.B?.label || 'B-WEEK';
+      label.classList.add("b-week");
+      label.classList.remove("a-week");
+    }
+
+    if (weekStr) {
+      weekStr.textContent = `${currentWeek}-Week Bell Schedule`;
+    }
+    return;
   }
 
-  if (weekStr) {
-    weekStr.textContent = `${currentWeek}-Week Bell Schedule`;
-  }
+  // Otherwise, a special schedule key is active today — apply its meta
+  const key = ACTIVE_SCHEDULE.mode.toUpperCase();
+  const meta = SCHEDULE_META[key] || {};
+  label.textContent = ACTIVE_SCHEDULE.weekLabelText || meta.label || key;
+  label.style.backgroundColor = ACTIVE_SCHEDULE.weekLabelColor || meta.color || '';
+  if (weekStr) weekStr.textContent = `${label.textContent} Bell Schedule`;
 }
 // Ensure the week label is applied after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
@@ -117,6 +150,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
-
-
-
