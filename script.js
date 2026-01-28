@@ -52,34 +52,42 @@ document.getElementById("day-name").textContent = todayName;
 document.getElementById("week-label").textContent = `${weekType}-WEEK`;
 
 // === LIVE CLOCK + ROLLOVER HANDLING ===
+let clockUpdateScheduled = false;
 function updateClock() {
-  now = new Date();
+  if (clockUpdateScheduled) return;
+  clockUpdateScheduled = true;
+  
+  requestAnimationFrame(() => {
+    now = new Date();
 
-  const dateElem = document.getElementById("date-text");
-  const timeElem = document.getElementById("time-text");
+    const dateElem = document.getElementById("date-text");
+    const timeElem = document.getElementById("time-text");
 
-  if (dateElem) {
-    dateElem.textContent = now.toLocaleDateString(undefined, {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric'
-    });
-  }
+    if (dateElem) {
+      dateElem.textContent = now.toLocaleDateString(undefined, {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    }
 
-  if (timeElem) {
-    timeElem.textContent = now.toLocaleTimeString([], {
-      hour: 'numeric',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true
-    });
-  }
+    if (timeElem) {
+      timeElem.textContent = now.toLocaleTimeString([], {
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      });
+    }
 
-  const newDayIndex = now.getDay();
-  if (newDayIndex !== currentDayIndex) {
-    location.reload();
-  }
+    const newDayIndex = now.getDay();
+    if (newDayIndex !== currentDayIndex) {
+      location.reload();
+    }
+    
+    clockUpdateScheduled = false;
+  });
 }
 setInterval(updateClock, 1000);
 updateClock();
