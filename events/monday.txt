@@ -12,7 +12,7 @@
   <ul style="list-style:none; padding-left:0; margin:0.6em 0;">
     <li style="font-size:2em; margin:0.4em 0;">
       <span style="color:#d7263d;">•</span>
-      <span><strong>11:45 am – 12:16 pm</strong> Advisory</span>
+      <span><strong>12:59 pm – 1:59 pm</strong> Advisory</span>
     </li>
   </ul>
 </body>
