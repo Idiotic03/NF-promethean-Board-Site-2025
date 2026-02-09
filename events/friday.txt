@@ -5,19 +5,19 @@
   <title>Friday</title>
 </head>
 <body style="font-family: system-ui, sans-serif; color:#111; margin:0.7rem;">
-  <h1 style="font-size:3.5em; margin:0.1em 0; color:#7b5de6; letter-spacing:0.04em;">
-    FRIDAY
+  <h1 style="font-size:3.6em; margin:0.1em 0; color:#c77dff; letter-spacing:0.05em;">
+    FRIDAY 💜
   </h1>
 
   <ul style="list-style:none; padding-left:0; margin:0.6em 0;">
-    <li style="font-size:2em; margin:0.4em 0;">
-      <span style="color:#7b5de6;">•</span>
-      <span><strong>12:59 pm – 1:59 pm</strong> Discovery Hour</span>
+    <li style="font-size:2.1em; margin:0.4em 0;">
+      <span style="color:#c77dff;">💜</span>
+      Love is in the Air — Wear Valentine colors & accessories
     </li>
 
     <li style="font-size:2em; margin:0.4em 0;">
-      <span style="color:#00BFFF;">•</span>
-      <span><strong>Q3 Midpoint Progress Grades</strong></span>
+      <span style="color:#7b5de6;">•</span>
+      <strong>11:15 am – 12:16 pm</strong> Discovery Hour
     </li>
   </ul>
 </body>
