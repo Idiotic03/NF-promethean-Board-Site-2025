@@ -5,19 +5,19 @@
   <title>Thursday</title>
 </head>
 <body style="font-family: system-ui, sans-serif; color:#111; margin:0.7rem;">
-  <h1 style="font-size:3.6em; margin:0.1em 0; color:#ff66cc; letter-spacing:0.05em;">
-    THURSDAY 💞
+  <h1 style="font-size:3.5em; margin:0.1em 0; color:#ff7a00; letter-spacing:0.04em;">
+    THURSDAY
   </h1>
 
   <ul style="list-style:none; padding-left:0; margin:0.6em 0;">
-    <li style="font-size:2.1em; margin:0.4em 0;">
-      <span style="color:#ff66cc;">💖</span>
-      Pretty in Pink / Beautiful in Black
+    <li style="font-size:2em; margin:0.4em 0;">
+      <span style="color:#d7263d;">•</span>
+      <span><strong>8:10 am – 9:10 am</strong> Focus Meeting</span>
     </li>
 
     <li style="font-size:2em; margin:0.4em 0;">
       <span style="color:#06d6a0;">•</span>
-      <strong>11:45 am – 12:16 pm</strong> Tutoring
+      <span><strong>12:59 pm – 1:29 pm</strong> Tutoring</span>
     </li>
   </ul>
 </body>
