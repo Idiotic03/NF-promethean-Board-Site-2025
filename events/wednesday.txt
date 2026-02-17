@@ -2,25 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Wednesday</title>
+  <title>Thursday</title>
 </head>
 <body style="font-family: system-ui, sans-serif; color:#111; margin:0.7rem;">
-  <h1 style="font-size:3.5em; margin:0.1em 0; color:#00BFFF; letter-spacing:0.04em;">
-    WEDNESDAY
+  <h1 style="font-size:3.5em; margin:0.1em 0; color:#ff7a00; letter-spacing:0.04em;">
+    THURSDAY
   </h1>
 
   <ul style="list-style:none; padding-left:0; margin:0.6em 0;">
-    <li style="font-size:1.95em; margin:0.35em 0;">
-      <span style="color:#00BFFF;">•</span>
-      <span><strong>8:45 am – 9:15 am</strong> Homework Help (Cafeteria)</span>
+    <li style="font-size:2em; margin:0.4em 0;">
+      <span style="color:#d7263d;">•</span>
+      <span><strong>8:10 am – 9:10 am</strong> Focus Meeting</span>
     </li>
 
-    <li style="font-size:1.95em; margin:0.35em 0;">
-      <span style="color:#333;">•</span>
-      <span><strong>9:00 am – 1:00 pm</strong> School Based Health Center open</span>
-    </li>
-
-    <li style="font-size:1.95em; margin:0.35em 0;">
+    <li style="font-size:2em; margin:0.4em 0;">
       <span style="color:#06d6a0;">•</span>
       <span><strong>12:59 pm – 1:29 pm</strong> Tutoring</span>
     </li>
