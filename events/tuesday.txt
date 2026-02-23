@@ -5,15 +5,28 @@
   <title>Tuesday</title>
 </head>
 <body style="font-family: system-ui, sans-serif; color:#111; margin:0.7rem;">
-  <h1 style="font-size:3.5em; margin:0.1em 0; color:#06d6a0; letter-spacing:0.04em;">
+  <h1 style="font-size:3.6em; margin:0.1em 0; color:#06d6a0; letter-spacing:0.05em;">
     TUESDAY
   </h1>
 
   <ul style="list-style:none; padding-left:0; margin:0.6em 0;">
+
     <li style="font-size:2em; margin:0.4em 0;">
       <span style="color:#06d6a0;">•</span>
-      <span><strong>12:59 pm – 1:29 pm</strong> Tutoring</span>
+      <strong>11:45 am – 12:16 pm</strong> Tutoring
     </li>
+
+    <li style="font-size:1.9em; margin:0.35em 0;">
+      <span style="color:#06d6a0;">•</span>
+      Lunch — Day 1 Home Visiting in the cafeteria  
+      <span style="display:block; font-size:0.9em;">Answering student questions</span>
+    </li>
+
+    <li style="font-size:2em; margin:0.4em 0;">
+      <span style="color:#ff7a00;">•</span>
+      <strong>1:27 pm – 2:27 pm</strong> Senior Meeting
+    </li>
+
   </ul>
 </body>
 </html>
