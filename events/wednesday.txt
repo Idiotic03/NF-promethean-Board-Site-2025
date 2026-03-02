@@ -23,7 +23,7 @@
 
     <li style="font-size:1.95em; margin:0.35em 0;">
       <span style="color:#06d6a0;">•</span>
-      <strong>11:45 am – 12:16 pm</strong> Tutoring
+      <strong>12:59 pm – 1:29 pm</strong> Tutoring
     </li>
 
   </ul>
