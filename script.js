@@ -52,14 +52,17 @@ document.getElementById("day-name").textContent = todayName;
 document.getElementById("week-label").textContent = `${weekType}-WEEK`;
 
 // === LIVE CLOCK + ROLLOVER HANDLING ===
-let clockUpdateScheduled = false;
+let lastClockUpdate = 0;
+let lastDisplayedMinute = -1;
 function updateClock() {
-  if (clockUpdateScheduled) return;
-  clockUpdateScheduled = true;
+  now = new Date();
+  const currentMinute = now.getMinutes();
+  const currentSecond = now.getSeconds();
   
-  requestAnimationFrame(() => {
-    now = new Date();
-
+  // Only update DOM every minute (not every second) to reduce thrashing
+  if (currentMinute !== lastDisplayedMinute) {
+    lastDisplayedMinute = currentMinute;
+    
     const dateElem = document.getElementById("date-text");
     const timeElem = document.getElementById("time-text");
 
@@ -80,16 +83,14 @@ function updateClock() {
         hour12: true
       });
     }
+  }
 
-    const newDayIndex = now.getDay();
-    if (newDayIndex !== currentDayIndex) {
-      location.reload();
-    }
-    
-    clockUpdateScheduled = false;
-  });
+  const newDayIndex = now.getDay();
+  if (newDayIndex !== currentDayIndex) {
+    location.reload();
+  }
 }
-setInterval(updateClock, 1000);
+setInterval(updateClock, 5000); // Update every 5 seconds (includes minute check)
 updateClock();
 
 // === Schedule Data ===
@@ -311,11 +312,12 @@ function updateCloudColor() {
 }
 
 // === RUN ON DOM READY ===
+let bgColorInterval = null;
 window.addEventListener("DOMContentLoaded", () => {
   updateCloudColor();
   updateBackgroundColorByTime();
 
-  setInterval(() => {
+  bgColorInterval = setInterval(() => {
     updateCloudColor();
     updateBackgroundColorByTime();
   }, 600000); // every 10 minutes
@@ -331,6 +333,8 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   // Start JS-driven seamless background loop once images are preloaded
+  let bgLoopRafId = null;
+  let resizeHandler = null;
   const startJsBgLoop = () => {
     document.body.classList.add('js-bg-loop');
     const layers = [
@@ -339,6 +343,8 @@ window.addEventListener("DOMContentLoaded", () => {
       { el: document.querySelector('.layer4'), speed: 0.004 },
       { el: document.querySelector('.layer5'), speed: 0.01 }
     ].filter(l => l.el);
+
+    if (layers.length === 0) return;
 
     // Initialize: set pixel widths and duplicate slides for seamless loop
     layers.forEach(l => {
@@ -354,23 +360,22 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     // Animate layers using requestAnimationFrame for smooth looping
-    let rafId = null;
     let last = performance.now();
     function loop(now) {
-      const dt = Math.min(16.67, now - last); // cap to 60fps for smoother movement
+      const dt = Math.min(16.67, now - last);
       last = now;
       layers.forEach(l => {
         if (!l.el) return;
         l.offset += l.speed * dt;
         if (l.offset >= l.originalWidth) l.offset -= l.originalWidth;
-        l.el.style.transform = `translate3d(${-l.offset}px,0,0)`; // use decimal for smoother rendering
+        l.el.style.transform = `translate3d(${-l.offset}px,0,0)`;
       });
-      rafId = requestAnimationFrame(loop);
+      bgLoopRafId = requestAnimationFrame(loop);
     }
-    rafId = requestAnimationFrame(loop);
+    bgLoopRafId = requestAnimationFrame(loop);
 
-    // Handle window resize
-    window.addEventListener('resize', () => {
+    // Handle window resize (cleanup-aware version)
+    resizeHandler = () => {
       layers.forEach(l => {
         const slides = Array.from(l.el.querySelectorAll('.slide'));
         const n = slides.length / 2 || slides.length;
@@ -379,7 +384,14 @@ window.addEventListener("DOMContentLoaded", () => {
         l.el.style.width = `${vw * n * 2}px`;
         l.originalWidth = vw * n;
       });
-    });
+    };
+    window.addEventListener('resize', resizeHandler);
+    
+    // Store cleanup function for potential future use
+    window.cleanupBgAnimation = () => {
+      if (bgLoopRafId) cancelAnimationFrame(bgLoopRafId);
+      if (resizeHandler) window.removeEventListener('resize', resizeHandler);
+    };
   };
 
   // Start loop when backgrounds are ready
@@ -398,6 +410,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
 function fitTextToContainer(element, minEm = 1.0) {
   const parent = element.parentElement;
+  if (!parent) return;
+  
   const start = parseFloat(getComputedStyle(element).fontSize) / 16;
   let size = start;
 
@@ -406,13 +420,18 @@ function fitTextToContainer(element, minEm = 1.0) {
   element.style.fontSize = `${size}em`;
   element.style.wordBreak = 'break-word';
 
+  // Limit iterations to prevent excessive reflows (max 20 iterations instead of potentially many more)
+  let iterations = 0;
+  const maxIterations = 20;
   while (
+    iterations < maxIterations &&
     (element.scrollHeight > parent.clientHeight ||
      element.scrollWidth  > parent.clientWidth) &&
     size > minEm
   ) {
     size = Math.max(minEm, +(size - 0.05).toFixed(2));
     element.style.fontSize = `${size}em`;
+    iterations++;
   }
 }
 
@@ -428,12 +447,17 @@ function fitUpcomingEvents(element, targetLines = 3, minEm = 1.1, maxEm = 3.0) {
   let size = Math.max(minEm, Math.min(maxEm, startEm));
   element.style.fontSize = `${size}em`;
 
+  // Limit iterations to prevent excessive reflows (max 20 iterations)
+  let iterations = 0;
+  const maxIterations = 20;
   while (
+    iterations < maxIterations &&
     (element.scrollHeight > parent.clientHeight || element.scrollWidth > parent.clientWidth) &&
     size > minEm
   ) {
     size = +(Math.max(minEm, size - 0.05)).toFixed(2);
     element.style.fontSize = `${size}em`;
+    iterations++;
   }
 }
 // Update week-string to match week type
@@ -446,141 +470,51 @@ if (weekStr) {
 let carouselData = [];
 let carouselIndex = 0;
 let carouselTimer = null;
-const ATTENDANCE_API = 'https://script.google.com/macros/s/AKfycbzsRddE-AwEbRkcJJn5fj1S2UZ5qXQ1n9-_xyHkjDSUNI-l1bzaYmAuZPakL89PatEN/exec';
-let attendanceData = null;
-let attendanceRefreshTimer = null;
+let carouselContentCache = {}; // Cache fetched event content to avoid repeated requests
 
 function initNewsCarousel() {
   const schoolDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   const todayIdx = schoolDays.indexOf(todayName);
   
-  // Build carousel with: week/schedule info -> future days -> WIC -> SBHC -> attendance -> fade out
+  // Build carousel with: future days -> WIC -> SBHC
   carouselData = [];
-  carouselData.push('__SCHEDULE_INFO__'); // Week/schedule type info (first)
   carouselData = carouselData.concat(schoolDays.slice(todayIdx + 1)); // Future days
   carouselData.push('WIC', 'SBHC'); // Add special content files
-  carouselData.push('__ATTENDANCE__'); // Attendance dashboard (last before fade)
 
   if (carouselData.length > 0) {
     loadNextCarouselItem();
   }
 }
 
-function buildScheduleInfoSlide() {
-  // Determine current schedule type
-  let scheduleType;
-  let scheduleData;
-  
-  if (window.ACTIVE_SCHEDULE.mode === 'AUTO') {
-    scheduleType = getCurrentWeek();
-    scheduleData = window.SCHEDULE_META[scheduleType];
-  } else {
-    scheduleType = window.ACTIVE_SCHEDULE.mode;
-    scheduleData = window.SCHEDULE_META[scheduleType];
-  }
-  
-  if (!scheduleData) {
-    return '<p>Schedule info unavailable</p>';
-  }
-  
-  const { label, color } = scheduleData;
-  let message = '';
-  
-  if (scheduleType === 'A') {
-    message = 'It\'s <strong>A-WEEK</strong><br/>Follow the A-week bell schedule!';
-  } else if (scheduleType === 'B') {
-    message = 'It\'s <strong>B-WEEK</strong><br/>Follow the B-week bell schedule!';
-  } else if (scheduleType === 'GARDEN') {
-    message = 'It\'s Garden day! Join us in the garden at 2:10 and help us celebrate our wonderful garden!';
-  } else if (scheduleType === 'LONG_ADVISORY') {
-    message = 'Today is a Long Advisory Day. Remember to go to your advisory first thing in the morning!';
-  } else if (scheduleType === 'EVENT') {
-    message = 'Today we have an event! Please report to the Cafeteria for our special event at 11:36am!';
-  } else if (scheduleType === 'DELAYED') {
-    message = 'Today we had a Delayed start. Make the most out of this shorter day and try to stay warm!';
-  } else {
-    message = `Today is <strong>${label}</strong><br/>Have a great day!`;
-  }
-  
-  return `
-    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; padding: 20px; text-align: center;">
-      <div style="background-color: ${color}; color: white; padding: 30px 40px; border-radius: 10px; font-size: 2.5em; font-weight: bold; margin-bottom: 20px;">
-        ${label}
-      </div>
-      <div style="font-size: 1.8em; line-height: 1.4;">
-        ${message}
-      </div>
-    </div>
-  `;
-}
-
 function loadNextCarouselItem() {
   if (carouselData.length === 0) return;
   
   const item = carouselData[carouselIndex];
+  const cacheKey = item.toLowerCase();
   
-  if (item === '__ATTENDANCE__') {
-    displayAttendanceDashboard();
-  } else if (item === '__SCHEDULE_INFO__') {
-    displayScheduleInfo();
-  } else {
-    const url = `./events/${item.toLowerCase()}.txt`;
-    fetch(url)
-      .then(res => {
-        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-        return res.text();
-      })
-      .then(text => {
-        displayCarouselItem(text);
-      })
-      .catch(err => {
-        console.error("[News Carousel]", err);
-        displayCarouselItem(`<p>No events for ${item}</p>`);
-      });
-  }
-}
-
-function displayScheduleInfo() {
-  const container = document.getElementById('news-carousel-content');
-  
-  // Remove previous item
-  const previousItem = container.querySelector('.carousel-content');
-  if (previousItem) {
-    previousItem.classList.remove('active');
-    setTimeout(() => {
-      if (previousItem.parentNode === container) {
-        previousItem.remove();
-      }
-    }, 1000);
+  // Check cache first
+  if (carouselContentCache[cacheKey] !== undefined) {
+    displayCarouselItem(carouselContentCache[cacheKey]);
+    return;
   }
   
-  // Create schedule info slide
-  const html = buildScheduleInfoSlide();
-  const item = document.createElement('div');
-  item.classList.add('carousel-content');
-  item.innerHTML = html;
-  
-  // Batch DOM operations
-  requestAnimationFrame(() => {
-    container.appendChild(item);
-    
-    // Trigger fade in on next frame
-    requestAnimationFrame(() => {
-      item.classList.add('active');
+  const url = `./events/${cacheKey}.txt`;
+  fetch(url)
+    .then(res => {
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      return res.text();
+    })
+    .then(text => {
+      // Cache the content before displaying
+      carouselContentCache[cacheKey] = text;
+      displayCarouselItem(text);
+    })
+    .catch(err => {
+      console.error("[News Carousel]", err);
+      const errorMsg = `<p>No events for ${item}</p>`;
+      carouselContentCache[cacheKey] = errorMsg;
+      displayCarouselItem(errorMsg);
     });
-  });
-  
-  // Schedule next item after 6 seconds
-  clearTimeout(carouselTimer);
-  carouselTimer = setTimeout(() => {
-    carouselIndex = (carouselIndex + 1) % carouselData.length;
-    
-    if (carouselIndex === 0) {
-      hideCarouselTemporarily();
-    } else {
-      loadNextCarouselItem();
-    }
-  }, 6000);
 }
 
 function displayCarouselItem(content) {
@@ -617,18 +551,23 @@ function displayCarouselItem(content) {
     });
   });
   
-  // Schedule next item after 6 seconds of display (fade happens during display time)
+  // Schedule next item after 8 seconds of display
   clearTimeout(carouselTimer);
   carouselTimer = setTimeout(() => {
     carouselIndex = (carouselIndex + 1) % carouselData.length;
     
-    // If we've cycled through all, hide the carousel for 30 seconds before repeating
+    // If we've cycled through all, fade out then hide the carousel for 30 seconds before repeating
     if (carouselIndex === 0) {
-      hideCarouselTemporarily();
+      // Fade out the current item
+      item.classList.remove('active');
+      // After fade completes, hide carousel
+      setTimeout(() => {
+        hideCarouselTemporarily();
+      }, 1000);
     } else {
       loadNextCarouselItem();
     }
-  }, 6000);
+  }, 8000);
 }
 
 function hideCarouselTemporarily() {
@@ -642,8 +581,6 @@ function hideCarouselTemporarily() {
     });
   }
   
-  clearInterval(attendanceRefreshTimer);
-  
   // After 30 seconds, show it again and start the cycle
   carouselTimer = setTimeout(() => {
     console.log("[Carousel] Showing carousel again...");
@@ -655,168 +592,6 @@ function hideCarouselTemporarily() {
     carouselIndex = 0;
     loadNextCarouselItem();
   }, 30000);
-}
-
-function fetchAttendanceData() {
-  return fetch(ATTENDANCE_API)
-    .then(res => res.json())
-    .then(data => {
-      // Get current week's Monday and Friday
-      const today = new Date();
-      const dayOfWeek = today.getDay();
-      const diff = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Adjust for Sunday
-      const mondayOfThisWeek = new Date(today.setDate(diff));
-      mondayOfThisWeek.setHours(0, 0, 0, 0);
-      
-      const fridayOfThisWeek = new Date(mondayOfThisWeek);
-      fridayOfThisWeek.setDate(fridayOfThisWeek.getDate() + 4);
-      fridayOfThisWeek.setHours(23, 59, 59, 999);
-      
-      // Parse attendance records and count by day (current week only)
-      const attendanceByDay = {
-        Monday: 0,
-        Tuesday: 0,
-        Wednesday: 0,
-        Thursday: 0,
-        Friday: 0
-      };
-      
-      const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-      const attendanceSet = new Set(); // Track unique attendees per day to avoid double-counting
-      
-      if (data.data && Array.isArray(data.data)) {
-        data.data.forEach(record => {
-          if (record.ts && record.email && record.mark === "I'm Here!") {
-            const date = new Date(record.ts);
-            
-            // Only count if it's within this week
-            if (date >= mondayOfThisWeek && date <= fridayOfThisWeek) {
-              const dayName = weekDays[date.getDay()];
-              
-              // Only count if it's a school day
-              if (attendanceByDay.hasOwnProperty(dayName)) {
-                const dayKey = `${dayName}-${record.email}`;
-                if (!attendanceSet.has(dayKey)) {
-                  attendanceSet.add(dayKey);
-                  attendanceByDay[dayName]++;
-                }
-              }
-            }
-          }
-        });
-      }
-      
-      attendanceData = attendanceByDay;
-      return attendanceByDay;
-    })
-    .catch(err => {
-      console.error("[Attendance]", err);
-      return null;
-    });
-}
-
-function displayAttendanceDashboard() {
-  const container = document.getElementById('news-carousel-content');
-  
-  // Remove previous item
-  const previousItem = container.querySelector('.carousel-content');
-  if (previousItem) {
-    previousItem.classList.remove('active');
-    setTimeout(() => {
-      if (previousItem.parentNode === container) {
-        previousItem.remove();
-      }
-    }, 1000);
-  }
-  
-  // Fetch initial data and display
-  fetchAttendanceData().then(data => {
-    if (!data) {
-      displayCarouselItem(`<p>Unable to load attendance data</p>`);
-      return;
-    }
-    
-    const dashboardHTML = buildAttendanceDashboard(data);
-    const item = document.createElement('div');
-    item.classList.add('carousel-content', 'attendance-dashboard');
-    item.innerHTML = dashboardHTML;
-    
-    // Batch DOM operations
-    requestAnimationFrame(() => {
-      container.appendChild(item);
-      
-      requestAnimationFrame(() => {
-        item.classList.add('active');
-      });
-    });
-    
-    // Auto-refresh every 5 seconds
-    clearInterval(attendanceRefreshTimer);
-    attendanceRefreshTimer = setInterval(() => {
-      fetchAttendanceData().then(data => {
-        if (data && item.parentNode === container) {
-          // Use requestAnimationFrame to batch updates
-          requestAnimationFrame(() => {
-            const updatedHTML = buildAttendanceDashboard(data);
-            item.innerHTML = updatedHTML;
-          });
-        }
-      });
-    }, 5000);
-    
-    // Schedule next carousel item after 12 seconds (attendance displays longer)
-    clearTimeout(carouselTimer);
-    carouselTimer = setTimeout(() => {
-      clearInterval(attendanceRefreshTimer);
-      carouselIndex = (carouselIndex + 1) % carouselData.length;
-      
-      if (carouselIndex === 0) {
-        hideCarouselTemporarily();
-      } else {
-        loadNextCarouselItem();
-      }
-    }, 12000);
-  });
-}
-
-function buildAttendanceDashboard(data) {
-  if (!data) {
-    return '<div style="padding: 20px; text-align: center;"><p>Unable to load attendance</p></div>';
-  }
-  
-  const schoolDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-  let html = '<div class="attendance-container">';
-  
-  // Today's attendance
-  const todayAttendance = data[todayName] || 0;
-  html += `<div class="attendance-today"><span class="label">Today's Attendance:</span> <span class="number">${todayAttendance}</span></div>`;
-  
-  // Bar chart for the week
-  html += '<div class="attendance-chart">';
-  const maxAttendance = Math.max(...schoolDays.map(day => data[day] || 0), 1);
-  
-  schoolDays.forEach(day => {
-    const count = data[day] || 0;
-    const percentage = (count / maxAttendance) * 100;
-    const dayLabel = day.substring(0, 3);
-    html += `
-      <div class="chart-bar-container">
-        <div class="chart-bar-label">${dayLabel}</div>
-        <div class="chart-bar-wrapper">
-          <div class="chart-bar" style="height: ${percentage}%;"></div>
-        </div>
-        <div class="chart-bar-value">${count}</div>
-      </div>
-    `;
-  });
-  
-  html += '</div>';
-  
-  // Add reminder text below bar chart
-  html += '<div style="margin-top: 20px; font-size: 1.3em; color: #555; font-weight: 500; text-align: center;">Scan the QR code above to show that you\'re here!</div>';
-  
-  html += '</div>';
-  return html;
 }
 
 // === PUBLIC API: Change Schedule Type ===
@@ -841,5 +616,46 @@ window.changeSchedule = function(mode) {
 // Start carousel when DOM is ready
 window.addEventListener("DOMContentLoaded", () => {
   initNewsCarousel();
+  applyWeekLabel();
 });
+
+// A/B Week label application function (moved from index.html)
+function applyWeekLabel() {
+  const label = document.getElementById("week-label");
+  const weekStr = document.getElementById("week-string");
+  if (!label) return;
+
+  const ACTIVE_SCHEDULE = window.ACTIVE_SCHEDULE || { mode: 'AUTO' };
+  const SCHEDULE_META = window.SCHEDULE_META || {};
+
+  // If a special schedule was set, it only applies for a single day.
+  const todayKey = new Date().toISOString().slice(0,10);
+  const stored = (() => { try { return localStorage.getItem('specialScheduleDate'); } catch(e) { return null; } })();
+
+  // If ACTIVE_SCHEDULE.mode is AUTO (or special expired), show A/B week label
+  if (!ACTIVE_SCHEDULE.mode || ACTIVE_SCHEDULE.mode === 'AUTO' || (stored && stored !== todayKey)) {
+    const currentWeek = getCurrentWeek(); // "A" or "B"
+    if (currentWeek === "A") {
+      label.textContent = SCHEDULE_META.A?.label || 'A-WEEK';
+      label.classList.add("a-week");
+      label.classList.remove("b-week");
+    } else {
+      label.textContent = SCHEDULE_META.B?.label || 'B-WEEK';
+      label.classList.add("b-week");
+      label.classList.remove("a-week");
+    }
+
+    if (weekStr) {
+      weekStr.textContent = `${currentWeek}-Week Bell Schedule`;
+    }
+    return;
+  }
+
+  // Otherwise, a special schedule key is active today — apply its meta
+  const key = ACTIVE_SCHEDULE.mode.toUpperCase();
+  const meta = SCHEDULE_META[key] || {};
+  label.textContent = ACTIVE_SCHEDULE.weekLabelText || meta.label || key;
+  label.style.backgroundColor = ACTIVE_SCHEDULE.weekLabelColor || meta.color || '';
+  if (weekStr) weekStr.textContent = `${label.textContent} Bell Schedule`;
+}
 
