@@ -76,12 +76,11 @@ function updateClock() {
     }
 
     if (timeElem) {
-      timeElem.textContent = now.toLocaleTimeString([], {
-        hour: 'numeric',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-      });
+      // Format time without seconds, with blinking colon
+      const hours = now.getHours() % 12 || 12;
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+      timeElem.innerHTML = `${hours}<span class="time-blink">:</span>${minutes} ${ampm}`;
     }
   }
 
