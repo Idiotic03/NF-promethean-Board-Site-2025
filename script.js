@@ -253,7 +253,10 @@ function loadEvents(targetId, fileName) {
     })
     .then(text => {
       const box = document.getElementById(targetId);
-      if (!box) return;
+      if (!box || !document.body.contains(box)) {
+        console.warn("[Events] Target box not found or removed from DOM:", targetId);
+        return;
+      }
 
       // Lock container and insert wrapper
       box.innerHTML = "";
@@ -264,6 +267,11 @@ function loadEvents(targetId, fileName) {
 
       // Resize after layout has settled so measurements are accurate
       requestAnimationFrame(() => {
+        // Double-check elements still exist
+        if (!box || !document.body.contains(box) || !document.body.contains(wrapper)) {
+          return;
+        }
+        
         // If this is a smaller day-events column, use height-based fitter
         if (box.classList.contains('day-events')) {
           fitUpcomingEvents(wrapper, 3, 1.1, 3.0);
@@ -276,7 +284,9 @@ function loadEvents(targetId, fileName) {
     .catch(err => {
       console.error("[Events]", err);
       const box = document.getElementById(targetId);
-      if (box) box.textContent = "No events found.";
+      if (box && document.body.contains(box)) {
+        box.innerHTML = "<div class='event-html'><p>No events available</p></div>";
+      }
     });
 }
 
@@ -408,8 +418,17 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function fitTextToContainer(element, minEm = 1.0) {
+  // Safety check: ensure element exists and is in DOM
+  if (!element || !document.body.contains(element)) {
+    console.warn("[fitText] Element not found or not in DOM", element);
+    return;
+  }
+  
   const parent = element.parentElement;
-  if (!parent) return;
+  if (!parent) {
+    console.warn("[fitText] Parent element not found");
+    return;
+  }
   
   const start = parseFloat(getComputedStyle(element).fontSize) / 16;
   let size = start;
@@ -421,22 +440,31 @@ function fitTextToContainer(element, minEm = 1.0) {
 
   // Limit iterations to prevent excessive reflows (max 20 iterations instead of potentially many more)
   let iterations = 0;
-  const maxIterations = 20;
+  const maxIterations = 15; // Reduced from 20 to prevent excessive DOM thrashing
   while (
     iterations < maxIterations &&
     (element.scrollHeight > parent.clientHeight ||
      element.scrollWidth  > parent.clientWidth) &&
     size > minEm
   ) {
-    size = Math.max(minEm, +(size - 0.05).toFixed(2));
+    size = Math.max(minEm, +(size - 0.1).toFixed(2)); // Larger step to avoid excessive iterations
     element.style.fontSize = `${size}em`;
     iterations++;
   }
 }
 
 function fitUpcomingEvents(element, targetLines = 3, minEm = 1.1, maxEm = 3.0) {
+  // Safety check: ensure element exists and is in DOM
+  if (!element || !document.body.contains(element)) {
+    console.warn("[fitUpcoming] Element not found or not in DOM", element);
+    return;
+  }
+  
   const parent = element.parentElement;
-  if (!parent) return;
+  if (!parent) {
+    console.warn("[fitUpcoming] Parent element not found");
+    return;
+  }
 
   const parentH = parent.clientHeight || 1;
   const lineH = 1.2;
@@ -448,13 +476,13 @@ function fitUpcomingEvents(element, targetLines = 3, minEm = 1.1, maxEm = 3.0) {
 
   // Limit iterations to prevent excessive reflows (max 20 iterations)
   let iterations = 0;
-  const maxIterations = 20;
+  const maxIterations = 15; // Reduced from 20 to prevent excessive DOM thrashing
   while (
     iterations < maxIterations &&
     (element.scrollHeight > parent.clientHeight || element.scrollWidth > parent.clientWidth) &&
     size > minEm
   ) {
-    size = +(Math.max(minEm, size - 0.05)).toFixed(2);
+    size = +(Math.max(minEm, size - 0.1)).toFixed(2); // Larger step to avoid excessive iterations
     element.style.fontSize = `${size}em`;
     iterations++;
   }
@@ -477,16 +505,32 @@ function initNewsCarousel() {
   
   // Build carousel with: future days -> WIC -> SBHC
   carouselData = [];
-  carouselData = carouselData.concat(schoolDays.slice(todayIdx + 1)); // Future days
+  if (todayIdx >= 0) {
+    carouselData = carouselData.concat(schoolDays.slice(todayIdx + 1)); // Future days
+  }
   carouselData.push('WIC', 'SBHC'); // Add special content files
 
+  console.log("[News Carousel] Initialized with items:", carouselData);
+
   if (carouselData.length > 0) {
-    loadNextCarouselItem();
+    // Add small delay to ensure DOM is fully ready
+    setTimeout(() => {
+      if (document.body.contains(document.getElementById('news-carousel-content'))) {
+        loadNextCarouselItem();
+      }
+    }, 100);
   }
 }
 
 function loadNextCarouselItem() {
-  if (carouselData.length === 0) return;
+  if (carouselData.length === 0) {
+    console.warn("[News Carousel] No carousel data available");
+    return;
+  }
+  
+  if (carouselIndex >= carouselData.length) {
+    carouselIndex = 0; // Safety reset if index is out of bounds
+  }
   
   const item = carouselData[carouselIndex];
   const cacheKey = item.toLowerCase();
@@ -509,8 +553,8 @@ function loadNextCarouselItem() {
       displayCarouselItem(text);
     })
     .catch(err => {
-      console.error("[News Carousel]", err);
-      const errorMsg = `<p>No events for ${item}</p>`;
+      console.error("[News Carousel] Error loading", cacheKey, ":", err);
+      const errorMsg = `<p style="color: #999;">No events for ${item}</p>`;
       carouselContentCache[cacheKey] = errorMsg;
       displayCarouselItem(errorMsg);
     });
@@ -518,17 +562,16 @@ function loadNextCarouselItem() {
 
 function displayCarouselItem(content) {
   const container = document.getElementById('news-carousel-content');
-  
-  // Remove previous item more efficiently
-  const previousItem = container.querySelector('.carousel-content');
-  if (previousItem) {
-    previousItem.classList.remove('active');
-    setTimeout(() => {
-      if (previousItem.parentNode === container) {
-        previousItem.remove();
-      }
-    }, 1000);
+  if (!container) {
+    console.error("[News Carousel] Container not found");
+    return;
   }
+  
+  // Aggressively clean up ALL previous items immediately
+  const allPreviousItems = container.querySelectorAll('.carousel-content');
+  allPreviousItems.forEach(item => {
+    item.remove();
+  });
   
   // Create new item
   const item = document.createElement('div');
@@ -537,16 +580,26 @@ function displayCarouselItem(content) {
   
   // Use requestAnimationFrame to batch DOM operations
   requestAnimationFrame(() => {
+    // Double-check container still exists
+    if (!document.body.contains(container)) {
+      console.error("[News Carousel] Container was removed from DOM");
+      return;
+    }
+    
     container.appendChild(item);
     
     // Trigger fade in on next frame
     requestAnimationFrame(() => {
-      item.classList.add('active');
-      
-      // Fit text after transitions settle
-      requestAnimationFrame(() => {
-        fitTextToContainer(item, 1.3);
-      });
+      if (document.body.contains(item)) {
+        item.classList.add('active');
+        
+        // Fit text after transitions settle
+        requestAnimationFrame(() => {
+          if (document.body.contains(item)) {
+            fitTextToContainer(item, 1.3);
+          }
+        });
+      }
     });
   });
   
@@ -558,7 +611,9 @@ function displayCarouselItem(content) {
     // If we've cycled through all, fade out then hide the carousel for 30 seconds before repeating
     if (carouselIndex === 0) {
       // Fade out the current item
-      item.classList.remove('active');
+      if (document.body.contains(item)) {
+        item.classList.remove('active');
+      }
       // After fade completes, hide carousel
       setTimeout(() => {
         hideCarouselTemporarily();
@@ -571,19 +626,23 @@ function displayCarouselItem(content) {
 
 function hideCarouselTemporarily() {
   const carouselBox = document.querySelector('.news-carousel');
-  console.log("[Carousel] Hiding carousel temporarily...", carouselBox);
-  
-  if (carouselBox) {
-    requestAnimationFrame(() => {
-      carouselBox.classList.add('hidden');
-      console.log("[Carousel] Hidden class added. Classes:", carouselBox.className);
-    });
+  if (!carouselBox || !document.body.contains(carouselBox)) {
+    console.warn("[Carousel] Carousel box not found or removed from DOM");
+    return;
   }
+  
+  console.log("[Carousel] Hiding carousel temporarily...");
+  
+  requestAnimationFrame(() => {
+    if (document.body.contains(carouselBox)) {
+      carouselBox.classList.add('hidden');
+    }
+  });
   
   // After 30 seconds, show it again and start the cycle
   carouselTimer = setTimeout(() => {
     console.log("[Carousel] Showing carousel again...");
-    if (carouselBox) {
+    if (document.body.contains(carouselBox)) {
       requestAnimationFrame(() => {
         carouselBox.classList.remove('hidden');
       });
@@ -616,6 +675,14 @@ window.changeSchedule = function(mode) {
 window.addEventListener("DOMContentLoaded", () => {
   initNewsCarousel();
   applyWeekLabel();
+  
+  // === AUTO-RELOAD SAFETY NET ===
+  // Automatically reload the page every 5 minutes to prevent stale state/memory issues
+  console.log("[Health] Auto-reload safety net: page will refresh every 5 minutes");
+  setInterval(() => {
+    console.log("[Health] Triggering auto-reload to maintain stability");
+    location.reload();
+  }, 5 * 60 * 1000); // 5 minutes in milliseconds
 });
 
 // A/B Week label application function (moved from index.html)
