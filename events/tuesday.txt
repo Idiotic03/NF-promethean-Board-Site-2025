@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Tuesday</title>
+<meta charset="UTF-8" />
+<title>Tuesday</title>
 </head>
+
 <body style="font-family: system-ui, sans-serif; color:#111; margin:0.7rem;">
-  <h1 style="font-size:3.6em; margin:0.1em 0; color:#06d6a0; letter-spacing:0.05em;">
-    TUESDAY
-  </h1>
 
-  <ul style="list-style:none; padding-left:0; margin:0.6em 0;">
+<h1 style="font-size:3.6em; margin:0.1em 0; color:#06d6a0; letter-spacing:0.05em;">
+TUESDAY
+</h1>
 
-    <li style="font-size:2em; margin:0.4em 0;">
-      <span style="color:#06d6a0;">•</span>
-      <strong>12:59 pm – 1:29 pm</strong> Tutoring
-    </li>
+<ul style="list-style:none; padding-left:0; margin:0.6em 0;">
 
-  </ul>
+<li style="font-size:2em; margin:0.4em 0;">
+<span style="color:#06d6a0;">•</span>
+<strong>NO Tutoring</strong>
+</li>
+
+<li style="font-size:2em; margin:0.4em 0;">
+<span style="color:#00BFFF;">•</span>
+<strong>Review for Finals</strong>
+</li>
+
+</ul>
+
 </body>
 </html>
