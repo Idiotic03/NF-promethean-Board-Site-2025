@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Friday</title>
+<meta charset="UTF-8" />
+<title>Friday</title>
 </head>
+
 <body style="font-family: system-ui, sans-serif; color:#111; margin:0.7rem;">
-  <h1 style="font-size:3.6em; margin:0.1em 0; color:#7b5de6; letter-spacing:0.05em;">
-    FRIDAY
-  </h1>
 
-  <ul style="list-style:none; padding-left:0; margin:0.6em 0;">
+<h1 style="font-size:3.6em; margin:0.1em 0; color:#7b5de6; letter-spacing:0.05em;">
+FRIDAY
+</h1>
 
-    <li style="font-size:2em; margin:0.4em 0;">
-      <span style="color:#00BFFF;">•</span>
-      <strong>9:00 am – 1:30 pm</strong> Tax Assistance for Students
-    </li>
+<ul style="list-style:none; padding-left:0; margin:0.6em 0;">
 
-    <li style="font-size:2em; margin:0.4em 0;">
-      <span style="color:#7b5de6;">•</span>
-      <strong>12:59 pm – 1:59 pm</strong> Discovery Hour
-    </li>
+<li style="font-size:2em; margin:0.4em 0;">
+<span style="color:#c77dff;">•</span>
+<strong>Make Up Finals</strong>
+</li>
 
-  </ul>
+<li style="font-size:2em; margin:0.4em 0;">
+<span style="color:#7b5de6;">•</span>
+<strong>Last Day of Quarter 3</strong>
+</li>
+
+</ul>
+
 </body>
 </html>
