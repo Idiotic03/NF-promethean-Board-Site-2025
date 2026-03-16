@@ -15,12 +15,10 @@ MONDAY
 
 <li style="font-size:2em; margin:0.4em 0;">
 <span style="color:#d7263d;">•</span>
-<strong>No Advisory</strong>
-</li>
-
-<li style="font-size:2em; margin:0.4em 0;">
-<span style="color:#00BFFF;">•</span>
-<strong>Review for Finals</strong>
+<strong>11:45 am – 12:16 pm</strong> Advisory  
+<span style="display:block; font-size:0.9em;">
+Level All Next Step Plans (Refer to Quena’s email)
+</span>
 </li>
 
 </ul>
