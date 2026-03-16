@@ -2,7 +2,7 @@
 
 // Determine current week type (A or B) based on start date
 function getCurrentWeek() {
-  const startDate = new Date("2026-01-12"); // Set your first A-week Monday here
+  const startDate = new Date("2026-03-16"); // Set your first A-week Monday here
   const now = new Date();
   const diffInDays = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
   const weeksPassed = Math.floor(diffInDays / 7);
