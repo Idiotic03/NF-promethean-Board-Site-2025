@@ -24,13 +24,8 @@ WEDNESDAY
 </li>
 
 <li style="font-size:2em; margin:0.4em 0;">
-<span style="color:#ff7a00;">•</span>
-<strong>10:30 am</strong> Field Trip to Shoe Depot (Maria)
-</li>
-
-<li style="font-size:2em; margin:0.4em 0;">
 <span style="color:#06d6a0;">•</span>
-<strong>11:45 am – 12:16 pm</strong> Tutoring
+<strong>12:59 pm – 1:29 pm</strong> Tutoring
 </li>
 
 </ul>
