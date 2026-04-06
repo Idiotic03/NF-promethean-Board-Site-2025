@@ -14,8 +14,16 @@ MONDAY
 <ul style="list-style:none; padding-left:0; margin:0.6em 0;">
 
 <li style="font-size:2em; margin:0.4em 0;">
+<span style="color:#06d6a0;">•</span>
+<strong>Welcome Back!</strong> Students & Staff return to school & daycare
+</li>
+
+<li style="font-size:2em; margin:0.4em 0;">
 <span style="color:#d7263d;">•</span>
-<strong>12:59 pm – 1:29 pm</strong> Advisory — Next Step Plans
+<strong>11:45 am – 12:16 pm</strong> Advisory  
+<span style="display:block; font-size:0.9em;">
+Level All Next Step Plans (Refer to Quena’s email)
+</span>
 </li>
 
 </ul>
