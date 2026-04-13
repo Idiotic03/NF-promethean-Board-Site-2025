@@ -15,7 +15,7 @@ FRIDAY
 
 <li style="font-size:2em; margin:0.4em 0;">
 <span style="color:#7b5de6;">•</span>
-<strong>Discovery Hour</strong>
+<strong>12:59 pm – 1:59 pm</strong> Discovery Hour
 </li>
 
 </ul>
