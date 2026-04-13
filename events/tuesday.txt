@@ -15,7 +15,7 @@ TUESDAY
 
 <li style="font-size:2em; margin:0.4em 0;">
 <span style="color:#06d6a0;">•</span>
-<strong>Tutoring</strong>
+<strong>12:59 pm – 1:29 pm</strong> Tutoring
 </li>
 
 </ul>
