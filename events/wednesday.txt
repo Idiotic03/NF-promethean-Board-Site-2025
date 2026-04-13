@@ -14,8 +14,18 @@ WEDNESDAY
 <ul style="list-style:none; padding-left:0; margin:0.6em 0;">
 
 <li style="font-size:2em; margin:0.4em 0;">
+<span style="color:#00BFFF;">•</span>
+<strong>8:45 am – 9:15 am</strong> Homework Help (Cafeteria)
+</li>
+
+<li style="font-size:2em; margin:0.4em 0;">
+<span style="color:#333;">•</span>
+<strong>9:00 am – 1:00 pm</strong> School Based Health Center open
+</li>
+
+<li style="font-size:2em; margin:0.4em 0;">
 <span style="color:#06d6a0;">•</span>
-<strong>Tutoring</strong>
+<strong>12:59 pm – 1:29 pm</strong> Tutoring
 </li>
 
 </ul>
