@@ -15,17 +15,22 @@ WEDNESDAY
 
 <li style="font-size:2em; margin:0.4em 0;">
 <span style="color:#00BFFF;">•</span>
-<strong>8:45 am – 9:15 am</strong> Homework Help (Cafeteria)
+<strong>8:45 am – 9:15 am</strong> Homework Help
 </li>
 
 <li style="font-size:2em; margin:0.4em 0;">
 <span style="color:#333;">•</span>
-<strong>9:00 am – 1:00 pm</strong> School Based Health Center open
+<strong>9:00 am – 1:00 pm</strong> School Based Health Center open for students
 </li>
 
 <li style="font-size:2em; margin:0.4em 0;">
 <span style="color:#06d6a0;">•</span>
-<strong>12:59 pm – 1:29 pm</strong> Tutoring
+<strong>11:45 am – 12:16 pm</strong> Tutoring
+</li>
+
+<li style="font-size:2em; margin:0.4em 0;">
+<span style="color:#222;">•</span>
+Garden Day
 </li>
 
 </ul>
