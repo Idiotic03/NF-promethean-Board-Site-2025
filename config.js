@@ -60,7 +60,7 @@ window.SPECIAL_SCHEDULES = {
 // Set mode to 'AUTO' for automatic A/B weeks, or set to a special schedule key
 // Special schedules automatically expire at the end of the day
 window.ACTIVE_SCHEDULE = {
-  mode: 'GARDEN' // Options: 'AUTO', 'EVENT', 'GARDEN', 'LONG_ADVISORY', 'DELAYED'
+  mode: 'AUTO' // Options: 'AUTO', 'EVENT', 'GARDEN', 'LONG_ADVISORY', 'DELAYED'
 };
 
 // === SCHEDULE METADATA ===
