@@ -12,22 +12,10 @@ FRIDAY
 </h1>
 
 <ul style="list-style:none; padding-left:0; margin:0.6em 0;">
-
 <li style="font-size:2em; margin:0.4em 0;">
 <span style="color:#7b5de6;">•</span>
-<strong>11:15 am – 12:16 pm</strong> Discovery Hour
+<strong>12:59 pm – 1:59 pm</strong> Discovery Hour
 </li>
-
-<li style="font-size:2em; margin:0.4em 0;">
-<span style="color:#222;">•</span>
-Optional Prom decorating after lunch
-</li>
-
-<li style="font-size:2em; margin:0.4em 0;">
-<span style="color:#ff4da6;">•</span>
-<strong>Prom is on Saturday!</strong>
-</li>
-
 </ul>
 
 </body>
