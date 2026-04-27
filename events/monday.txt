@@ -7,22 +7,15 @@
 
 <body style="font-family: system-ui, sans-serif; color:#111; margin:0.7rem;">
 
-<h1 style="font-size:3.6em; margin:0.1em 0; color:#d7263d; letter-spacing:0.05em;">
+<h1 style="font-size:3.6em; margin:0.1em 0; color:#06d6a0; letter-spacing:0.05em;">
 MONDAY
 </h1>
 
 <ul style="list-style:none; padding-left:0; margin:0.6em 0;">
-
 <li style="font-size:2em; margin:0.4em 0;">
-<span style="color:#d7263d;">•</span>
-<strong>11:45 am – 12:16 pm</strong> Advisory
+<span style="color:#06d6a0;">•</span>
+<strong>12:59 pm – 1:59 pm</strong> Advisory
 </li>
-
-<li style="font-size:2em; margin:0.4em 0;">
-<span style="color:#222;">•</span>
-Culture of Care PD
-</li>
-
 </ul>
 
 </body>
