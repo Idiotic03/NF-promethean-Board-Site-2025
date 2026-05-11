@@ -53,6 +53,16 @@ window.SPECIAL_SCHEDULES = {
       ["Period 3", "1:59 pm - 2:57 pm"],
       ["Period 4", "3:02 pm - 4:00 pm"]
     ]
+  },
+
+  REGULAR: {
+    default: [
+      ["Period 1", "9:15 am - 10:43 am"],
+      ["Period 2", "10:48 am - 12:16 pm"],
+      ["Lunch", "12:23 pm - 12:53 pm"],
+      ["Period 3", "12:59 pm - 2:27 pm"],
+      ["Period 4", "2:32 pm - 4:00 pm"]
+    ]
   }
 };
 
@@ -60,7 +70,7 @@ window.SPECIAL_SCHEDULES = {
 // Set mode to 'AUTO' for automatic A/B weeks, or set to a special schedule key
 // Special schedules automatically expire at the end of the day
 window.ACTIVE_SCHEDULE = {
-  mode: 'AUTO' // Options: 'AUTO', 'EVENT', 'GARDEN', 'LONG_ADVISORY', 'DELAYED'
+  mode: 'REGULAR' // Options: 'AUTO', 'EVENT', 'GARDEN', 'LONG_ADVISORY', 'DELAYED'
 };
 
 // === SCHEDULE METADATA ===
@@ -71,7 +81,8 @@ window.SCHEDULE_META = {
   EVENT: { label: 'EVENT DAY', color: '#f39c12' },
   GARDEN: { label: 'Garden Day', color: '#2ecc71' },
   LONG_ADVISORY: { label: 'Long Advisory', color: '#9b59b6' },
-  DELAYED: { label: 'Delayed Start', color: '#e67e22' }
+  DELAYED: { label: 'Delayed Start', color: '#e67e22' },
+  REGULAR: { label: 'Regular Bell Schedule', color: '#9b59b6' }
 };
 
 
